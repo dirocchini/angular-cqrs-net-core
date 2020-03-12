@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Users.Queries.GetAll;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,13 +10,20 @@ namespace Web.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
+        public UserController()
+        {
+                
+        }
+
+
         // GET: api/User
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<UsersVm> Get()
         {
-            return new string[] { "value1", "value2" };
+            var users = await Mediator.Send(new GetAllQuery());
+            return users;
         }
 
         // GET: api/User/5

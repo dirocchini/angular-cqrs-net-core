@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using Application.Common.Behaviours;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
@@ -14,8 +14,8 @@ namespace Application
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
-            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
-            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 
             return services;
         }

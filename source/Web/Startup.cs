@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
+using Application.Common.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Persistence;
+using Web.Services;
 
 namespace Web
 {
@@ -27,6 +30,8 @@ namespace Web
         {
             services.AddControllers();
             services.AddPersistence(Configuration);
+            services.AddApplication();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
         }
 
@@ -37,6 +42,8 @@ namespace Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
+
 
             app.UseRouting();
 

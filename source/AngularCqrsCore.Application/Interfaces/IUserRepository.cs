@@ -8,7 +8,9 @@ namespace Application.Interfaces
 {
     public interface IUserRepository
     {
-        Task<User> GetByLogin(string login);
+        Task<User> GetByLoginAsync(string login);
+
+        Task<List<User>> GetAllAsync();
 
     }
 }

@@ -248,6 +248,9 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
+              "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\AngularCqrsCore.Application\\Application.csproj": {
+                "projectPath": "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\AngularCqrsCore.Application\\Application.csproj"
+              },
               "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\AngularCqrsCore.Infrastructure\\Persistence.csproj": {
                 "projectPath": "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\AngularCqrsCore.Infrastructure\\Persistence.csproj"
               }
