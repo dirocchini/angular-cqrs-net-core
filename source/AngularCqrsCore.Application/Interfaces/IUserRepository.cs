@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using Domain.Entities;
 
 namespace Application.Interfaces
 {
-    class IUserRepository
+    public interface IUserRepository
     {
+        Task<User> GetByLogin(string login);
+
     }
 }

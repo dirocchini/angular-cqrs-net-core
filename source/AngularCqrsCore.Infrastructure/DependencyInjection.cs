@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Persistence.Repositories;
+
 
 namespace Persistence
 {
@@ -27,13 +30,5 @@ namespace Persistence
 
             return services;
         }
-    }
-
-    public class UserRepository 
-    {
-    }
-
-    public interface IUserRepository
-    {
     }
 }

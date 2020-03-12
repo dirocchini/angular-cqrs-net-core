@@ -5,11 +5,23 @@ using Application.Common.Interfaces;
 using Domain.Common;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Options;
+using Persistence.Configurations;
 
 namespace Persistence
 {
-    public class AngularCoreContext : DbContext, IApplicationDbContext
+    public sealed class AngularCoreContext : DbContext, IApplicationDbContext
     {
+        public AngularCoreContext(DbContextOptions<AngularCoreContext> options) : base(options)
+        {
+            if (Database.GetPendingMigrations().Any())
+                Database.Migrate();
+        }
+
+
+
         public DbSet<User> Users { get; set; }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
@@ -29,6 +41,14 @@ namespace Persistence
             }
 
             return base.SaveChangesAsync(cancellationToken);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
