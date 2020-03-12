@@ -1,0 +1,3 @@
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\obj\Debug\netstandard2.1\Persistence.csprojAssemblyReference.cache
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\obj\Debug\netstandard2.1\Persistence.AssemblyInfoInputs.cache
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\obj\Debug\netstandard2.1\Persistence.AssemblyInfo.cs

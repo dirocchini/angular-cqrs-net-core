@@ -1,0 +1,11 @@
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Application\obj\Debug\netstandard2.1\Application.AssemblyInfoInputs.cache
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Application\obj\Debug\netstandard2.1\Application.AssemblyInfo.cs
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Application\bin\Debug\netstandard2.1\Application.deps.json
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Application\bin\Debug\netstandard2.1\Application.dll
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Application\bin\Debug\netstandard2.1\Application.pdb
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Application\bin\Debug\netstandard2.1\Domain.dll
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Application\bin\Debug\netstandard2.1\Domain.pdb
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Application\obj\Debug\netstandard2.1\Application.csprojAssemblyReference.cache
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Application\obj\Debug\netstandard2.1\Application.csproj.CopyComplete
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Application\obj\Debug\netstandard2.1\Application.dll
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Application\obj\Debug\netstandard2.1\Application.pdb
