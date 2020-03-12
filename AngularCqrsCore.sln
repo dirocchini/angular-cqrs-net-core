@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularCqrsCore.Domain", "source\AngularCoreCqrs.Domain\AngularCqrsCore.Domain.csproj", "{668AC73E-FD38-4B3A-8932-B64AF2A4D454}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularCqrsCore.Application", "source\AngularCqrsCore.Application\AngularCqrsCore.Application.csproj", "{B1CFEAD6-E9E3-49ED-B171-43082D861C4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularCqrsCore.Infrastructure", "source\AngularCqrsCore.Infrastructure\AngularCqrsCore.Infrastructure.csproj", "{EFC1E9A7-D417-4F57-9C0C-F0E6B2E3E31C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{78088200-17B8-4AE9-98F9-15B57BC430FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-items", "{1460B039-7724-4BAC-B6DB-C41B61DD8EB6}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{668AC73E-FD38-4B3A-8932-B64AF2A4D454}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{668AC73E-FD38-4B3A-8932-B64AF2A4D454}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{668AC73E-FD38-4B3A-8932-B64AF2A4D454}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{668AC73E-FD38-4B3A-8932-B64AF2A4D454}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1CFEAD6-E9E3-49ED-B171-43082D861C4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1CFEAD6-E9E3-49ED-B171-43082D861C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1CFEAD6-E9E3-49ED-B171-43082D861C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1CFEAD6-E9E3-49ED-B171-43082D861C4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFC1E9A7-D417-4F57-9C0C-F0E6B2E3E31C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFC1E9A7-D417-4F57-9C0C-F0E6B2E3E31C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFC1E9A7-D417-4F57-9C0C-F0E6B2E3E31C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFC1E9A7-D417-4F57-9C0C-F0E6B2E3E31C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{668AC73E-FD38-4B3A-8932-B64AF2A4D454} = {78088200-17B8-4AE9-98F9-15B57BC430FB}
+		{B1CFEAD6-E9E3-49ED-B171-43082D861C4A} = {78088200-17B8-4AE9-98F9-15B57BC430FB}
+		{EFC1E9A7-D417-4F57-9C0C-F0E6B2E3E31C} = {78088200-17B8-4AE9-98F9-15B57BC430FB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8ED2D80-D6C7-435C-BB69-A1E2C3D5BB64}
+	EndGlobalSection
+EndGlobal
