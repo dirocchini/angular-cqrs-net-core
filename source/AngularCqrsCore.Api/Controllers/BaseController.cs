@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-
-namespace Web.Controllers
+namespace Api.Controllers
 {
     public class BaseController : Controller
     {
