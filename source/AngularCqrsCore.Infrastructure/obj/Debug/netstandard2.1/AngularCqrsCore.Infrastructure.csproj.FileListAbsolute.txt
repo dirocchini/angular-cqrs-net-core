@@ -1,0 +1,13 @@
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\bin\Debug\netstandard2.1\AngularCqrsCore.Infrastructure.deps.json
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\bin\Debug\netstandard2.1\AngularCqrsCore.Infrastructure.dll
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\bin\Debug\netstandard2.1\AngularCqrsCore.Infrastructure.pdb
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\obj\Debug\netstandard2.1\AngularCqrsCore.Infrastructure.csprojAssemblyReference.cache
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\obj\Debug\netstandard2.1\AngularCqrsCore.Infrastructure.AssemblyInfoInputs.cache
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\obj\Debug\netstandard2.1\AngularCqrsCore.Infrastructure.AssemblyInfo.cs
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\obj\Debug\netstandard2.1\AngularCqrsCore.Infrastructure.dll
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\obj\Debug\netstandard2.1\AngularCqrsCore.Infrastructure.pdb
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\bin\Debug\netstandard2.1\AngularCqrsCore.Domain.dll
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\bin\Debug\netstandard2.1\AngularCqrsCore.Domain.pdb
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\obj\Debug\netstandard2.1\AngularCqrsCore.Infrastructure.csproj.CopyComplete
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\bin\Debug\netstandard2.1\AngularCqrsCore.Application.dll
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCqrsCore.Infrastructure\bin\Debug\netstandard2.1\AngularCqrsCore.Application.pdb
