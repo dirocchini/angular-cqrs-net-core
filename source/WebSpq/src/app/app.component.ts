@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'WebSpq';
+  title = 'Angular 9 CQRS Dot Net Core';
 }
