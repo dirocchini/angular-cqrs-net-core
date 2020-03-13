@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class Initial : Migration
+    public partial class StartSolution : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,7 +18,8 @@ namespace Persistence.Migrations
                     LastModifiedBy = table.Column<int>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(type: "varchar (50)", nullable: true),
-                    Login = table.Column<string>(nullable: true)
+                    Login = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(type: "varchar (50)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,18 +28,14 @@ namespace Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Created", "CreatedBy", "LastModified", "LastModifiedBy", "Login", "Name" },
-                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, 0, "droquini", "Diego Roquini" });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "Created", "CreatedBy", "LastModified", "LastModifiedBy", "Login", "Name" },
-                values: new object[] { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, 0, "istanchese", "iago Stanchese" });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "Created", "CreatedBy", "LastModified", "LastModifiedBy", "Login", "Name" },
-                values: new object[] { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, 0, "fvila", "Fernando Vila" });
+                columns: new[] { "Id", "Created", "CreatedBy", "LastModified", "LastModifiedBy", "Login", "Name", "Password" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2020, 3, 12, 20, 57, 2, 441, DateTimeKind.Local).AddTicks(9184), 0, null, 0, "admin", "Administrator", "000" },
+                    { 2, new DateTime(2020, 3, 12, 20, 57, 2, 442, DateTimeKind.Local).AddTicks(2207), 0, null, 0, "diego-user", "Diego", "111" },
+                    { 3, new DateTime(2020, 3, 12, 20, 57, 2, 442, DateTimeKind.Local).AddTicks(2226), 0, null, 0, "iago-user", "iago", "222" },
+                    { 4, new DateTime(2020, 3, 12, 20, 57, 2, 442, DateTimeKind.Local).AddTicks(2228), 0, null, 0, "fernando-user", "Fernando", "333" }
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

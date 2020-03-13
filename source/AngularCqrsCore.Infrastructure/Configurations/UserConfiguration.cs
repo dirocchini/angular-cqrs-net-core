@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -16,7 +17,22 @@ namespace Persistence.Configurations
 
             builder
                 .Property(e => e.Name)
+                .HasColumnType("varchar (50)")
+                .IsRequired(true);
+
+            builder
+                .Property(e => e.Email)
                 .HasColumnType("varchar (50)");
+
+            builder
+                .Property(e => e.Login)
+                .HasColumnType("varchar (50)")
+                .IsRequired(true);
+
+            builder
+                .Property(e => e.Password)
+                .HasColumnType("varchar (50)")
+                .IsRequired(true);
 
 
             builder
@@ -24,20 +40,34 @@ namespace Persistence.Configurations
                     new User()
                     {
                         Id = 1,
-                        Name = "Diego Roquini",
-                        Login = "droquini"
+                        Name = "Administrator",
+                        Login = "admin",
+                        Password = "000",
+                        Created = DateTime.Now
                     },
                     new User()
                     {
                         Id = 2,
-                        Name = "iago Stanchese",
-                        Login = "istanchese"
+                        Name = "Diego",
+                        Login = "diego-user",
+                        Password = "111",
+                        Created = DateTime.Now
                     },
                     new User()
                     {
                         Id = 3,
-                        Name = "Fernando Vila",
-                        Login = "fvila"
+                        Name = "iago",
+                        Login = "iago-user",
+                        Password = "222",
+                        Created = DateTime.Now
+                    },
+                    new User()
+                    {
+                        Id = 4,
+                        Name = "Fernando",
+                        Login = "fernando-user",
+                        Password = "333",
+                        Created = DateTime.Now
                     });
 
         }

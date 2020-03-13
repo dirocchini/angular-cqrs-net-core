@@ -23,7 +23,7 @@ namespace Application.Common.Behaviours
         public async Task Process(TRequest request, CancellationToken cancellationToken)
         {
             var requestName = typeof(TRequest).Name;
-            _logger.LogInformation("CleanArchitecture Request: {Name} - User: {user} - Request: {@Request}", requestName, _currentUserService.UserName, request);
+            _logger.LogInformation("AngularCQRSCore Request: {Name} - User: {user} - Request: {@Request}", requestName, _currentUserService.UserName, request);
         }
     }
     }

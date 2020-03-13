@@ -10,8 +10,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AngularCoreContext))]
-    [Migration("20200312212620_Initial")]
-    partial class Initial
+    [Migration("20200312235713_Start Solution")]
+    partial class StartSolution
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,9 @@ namespace Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("varchar (50)");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("varchar (50)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -54,29 +57,42 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Created = new DateTime(2020, 3, 12, 20, 57, 2, 441, DateTimeKind.Local).AddTicks(9184),
                             CreatedBy = 0,
                             LastModifiedBy = 0,
-                            Login = "droquini",
-                            Name = "Diego Roquini"
+                            Login = "admin",
+                            Name = "Administrator",
+                            Password = "000"
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Created = new DateTime(2020, 3, 12, 20, 57, 2, 442, DateTimeKind.Local).AddTicks(2207),
                             CreatedBy = 0,
                             LastModifiedBy = 0,
-                            Login = "istanchese",
-                            Name = "iago Stanchese"
+                            Login = "diego-user",
+                            Name = "Diego",
+                            Password = "111"
                         },
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Created = new DateTime(2020, 3, 12, 20, 57, 2, 442, DateTimeKind.Local).AddTicks(2226),
                             CreatedBy = 0,
                             LastModifiedBy = 0,
-                            Login = "fvila",
-                            Name = "Fernando Vila"
+                            Login = "iago-user",
+                            Name = "iago",
+                            Password = "222"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Created = new DateTime(2020, 3, 12, 20, 57, 2, 442, DateTimeKind.Local).AddTicks(2228),
+                            CreatedBy = 0,
+                            LastModifiedBy = 0,
+                            Login = "fernando-user",
+                            Name = "Fernando",
+                            Password = "333"
                         });
                 });
 #pragma warning restore 612, 618
