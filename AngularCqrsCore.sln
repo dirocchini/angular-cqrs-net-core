@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "source\Web\Web.csproj", "{68FF5F19-063A-4D6C-BC5C-3C12E60667EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "source\Web\Api.csproj", "{68FF5F19-063A-4D6C-BC5C-3C12E60667EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
