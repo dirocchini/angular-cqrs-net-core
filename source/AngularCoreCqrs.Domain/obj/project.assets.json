@@ -14,9 +14,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\AngularCoreCqrs.Domain\\AngularCqrsCore.Domain.csproj",
-      "projectName": "AngularCqrsCore.Domain",
-      "projectPath": "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\AngularCoreCqrs.Domain\\AngularCqrsCore.Domain.csproj",
+      "projectUniqueName": "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\AngularCoreCqrs.Domain\\Domain.csproj",
+      "projectName": "Domain",
+      "projectPath": "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\AngularCoreCqrs.Domain\\Domain.csproj",
       "packagesPath": "C:\\Users\\Rocchini\\.nuget\\packages\\",
       "outputPath": "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\AngularCoreCqrs.Domain\\obj\\",
       "projectStyle": "PackageReference",

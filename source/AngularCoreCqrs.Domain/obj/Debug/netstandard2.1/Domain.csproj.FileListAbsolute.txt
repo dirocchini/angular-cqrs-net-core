@@ -1,0 +1,7 @@
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCoreCqrs.Domain\bin\Debug\netstandard2.1\Domain.deps.json
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCoreCqrs.Domain\bin\Debug\netstandard2.1\Domain.dll
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCoreCqrs.Domain\bin\Debug\netstandard2.1\Domain.pdb
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCoreCqrs.Domain\obj\Debug\netstandard2.1\Domain.AssemblyInfoInputs.cache
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCoreCqrs.Domain\obj\Debug\netstandard2.1\Domain.AssemblyInfo.cs
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCoreCqrs.Domain\obj\Debug\netstandard2.1\Domain.dll
+C:\y_projetos\studies\angular-cqrs-net-core\source\AngularCoreCqrs.Domain\obj\Debug\netstandard2.1\Domain.pdb
