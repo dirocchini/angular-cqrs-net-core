@@ -8952,9 +8952,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\Web\\Web.csproj",
-      "projectName": "Web",
-      "projectPath": "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\Web\\Web.csproj",
+      "projectUniqueName": "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\Web\\Api.csproj",
+      "projectName": "Api",
+      "projectPath": "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\Web\\Api.csproj",
       "packagesPath": "C:\\Users\\Rocchini\\.nuget\\packages\\",
       "outputPath": "C:\\y_projetos\\studies\\angular-cqrs-net-core\\source\\Web\\obj\\",
       "projectStyle": "PackageReference",
