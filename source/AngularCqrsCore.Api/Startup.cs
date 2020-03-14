@@ -1,20 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Api.Services;
 using Application;
 using Application.Common.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Persistence;
-using Web.Services;
 
-namespace Web
+namespace Api
 {
     public class Startup
     {
@@ -32,8 +26,9 @@ namespace Web
             services.AddPersistence(Configuration);
             services.AddApplication();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
-
+            services.AddCors();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -43,9 +38,9 @@ namespace Web
                 app.UseDeveloperExceptionPage();
             }
 
-
-
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthorization();
 
@@ -53,6 +48,8 @@ namespace Web
             {
                 endpoints.MapControllers();
             });
+
+
         }
     }
 }

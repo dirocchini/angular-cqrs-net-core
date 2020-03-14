@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Application.Users.Queries.GetAll;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Web.Controllers
+namespace Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -16,6 +12,7 @@ namespace Web.Controllers
         {
                 
         }
+
 
 
         // GET: api/User
