@@ -27,6 +27,7 @@ namespace Api
             services.AddApplication();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddCors();
+
         }
 
 
@@ -48,8 +49,6 @@ namespace Api
             {
                 endpoints.MapControllers();
             });
-
-
         }
     }
 }

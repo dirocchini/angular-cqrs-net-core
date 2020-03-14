@@ -10,8 +10,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AngularCoreContext))]
-    [Migration("20200314040857_Added fields to user")]
-    partial class Addedfieldstouser
+    [Migration("20200314134638_Admin password changed")]
+    partial class Adminpasswordchanged
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,12 +56,17 @@ namespace Persistence.Migrations
                         .HasColumnType("varchar (50)");
 
                     b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Login")
+                        .IsUnique();
 
                     b.ToTable("Users");
 
@@ -69,42 +74,14 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2020, 3, 14, 1, 8, 57, 68, DateTimeKind.Local).AddTicks(3977),
+                            Created = new DateTime(2020, 3, 14, 10, 46, 38, 248, DateTimeKind.Local).AddTicks(9385),
                             CreatedBy = 0,
                             LastModifiedBy = 0,
                             Login = "admin",
                             Name = "Administrator",
-                            Password = "000"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Created = new DateTime(2020, 3, 14, 1, 8, 57, 69, DateTimeKind.Local).AddTicks(4292),
-                            CreatedBy = 0,
-                            LastModifiedBy = 0,
-                            Login = "diego-user",
-                            Name = "Diego",
-                            Password = "111"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Created = new DateTime(2020, 3, 14, 1, 8, 57, 69, DateTimeKind.Local).AddTicks(4331),
-                            CreatedBy = 0,
-                            LastModifiedBy = 0,
-                            Login = "iago-user",
-                            Name = "iago",
-                            Password = "222"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Created = new DateTime(2020, 3, 14, 1, 8, 57, 69, DateTimeKind.Local).AddTicks(4334),
-                            CreatedBy = 0,
-                            LastModifiedBy = 0,
-                            Login = "fernando-user",
-                            Name = "Fernando",
-                            Password = "333"
+                            Password = "123",
+                            PasswordHash = new byte[] { 239, 228, 146, 206, 24, 157, 37, 42, 185, 185, 131, 158, 98, 77, 9, 248, 68, 181, 181, 155, 222, 36, 20, 75, 46, 185, 225, 168, 37, 233, 42, 210, 51, 150, 153, 129, 164, 166, 92, 76, 222, 62, 45, 87, 167, 112, 132, 191, 88, 250, 202, 185, 9, 122, 107, 66, 147, 191, 234, 219, 212, 222, 61, 216, 2, 254, 194, 210, 26, 8, 238, 155, 143, 184, 55, 12, 169, 27, 234, 68, 214, 139, 93, 241, 67, 228, 60, 166, 254, 35, 144, 148, 68, 23, 215, 231, 53, 128, 37, 134, 135, 21, 153, 225, 97, 114, 100, 90, 172, 195, 112, 132, 134, 161, 11, 52, 128, 223, 152, 55, 169, 34, 46, 152, 92, 171, 79, 242 },
+                            PasswordSalt = new byte[] { 106, 46, 45, 203, 158, 207, 233, 131, 120, 178, 13, 47, 117, 132, 224, 62, 68, 173, 0, 99, 222, 232, 188, 235, 176, 128, 18, 229, 193, 42, 0, 132, 217, 64, 247, 50, 134, 88, 21, 144, 203, 196, 248, 65, 10, 70, 78, 240, 249, 24, 80, 183, 32, 179, 208, 173, 234, 137, 202, 30, 65, 188, 79, 236 }
                         });
                 });
 #pragma warning restore 612, 618

@@ -10,8 +10,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AngularCoreContext))]
-    [Migration("20200312235713_Start Solution")]
-    partial class StartSolution
+    [Migration("20200314134327_Start Migration")]
+    partial class StartMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,9 @@ namespace Persistence.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("varchar (50)");
+
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("datetime2");
 
@@ -41,15 +44,29 @@ namespace Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Login")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar (50)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("varchar (50)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("varchar (50)");
 
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Login")
+                        .IsUnique();
 
                     b.ToTable("Users");
 
@@ -57,42 +74,14 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2020, 3, 12, 20, 57, 2, 441, DateTimeKind.Local).AddTicks(9184),
+                            Created = new DateTime(2020, 3, 14, 10, 43, 27, 36, DateTimeKind.Local).AddTicks(8213),
                             CreatedBy = 0,
                             LastModifiedBy = 0,
                             Login = "admin",
                             Name = "Administrator",
-                            Password = "000"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Created = new DateTime(2020, 3, 12, 20, 57, 2, 442, DateTimeKind.Local).AddTicks(2207),
-                            CreatedBy = 0,
-                            LastModifiedBy = 0,
-                            Login = "diego-user",
-                            Name = "Diego",
-                            Password = "111"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Created = new DateTime(2020, 3, 12, 20, 57, 2, 442, DateTimeKind.Local).AddTicks(2226),
-                            CreatedBy = 0,
-                            LastModifiedBy = 0,
-                            Login = "iago-user",
-                            Name = "iago",
-                            Password = "222"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Created = new DateTime(2020, 3, 12, 20, 57, 2, 442, DateTimeKind.Local).AddTicks(2228),
-                            CreatedBy = 0,
-                            LastModifiedBy = 0,
-                            Login = "fernando-user",
-                            Name = "Fernando",
-                            Password = "333"
+                            Password = "111",
+                            PasswordHash = new byte[] { 91, 230, 146, 21, 162, 57, 245, 219, 87, 150, 127, 238, 207, 107, 75, 242, 53, 207, 95, 168, 111, 99, 198, 101, 197, 2, 205, 55, 121, 228, 94, 158, 166, 43, 56, 149, 47, 112, 65, 64, 210, 154, 217, 220, 117, 195, 196, 38, 163, 133, 16, 106, 90, 248, 214, 106, 117, 63, 83, 188, 70, 2, 19, 194, 31, 247, 88, 247, 84, 190, 121, 0, 193, 35, 148, 7, 91, 105, 202, 151, 138, 230, 153, 44, 207, 19, 139, 161, 34, 83, 45, 152, 197, 70, 40, 85, 101, 252, 252, 93, 183, 141, 66, 67, 57, 75, 143, 96, 170, 164, 195, 89, 35, 157, 57, 9, 228, 120, 153, 59, 229, 231, 69, 58, 173, 68, 98, 49 },
+                            PasswordSalt = new byte[] { 181, 74, 43, 172, 6, 39, 169, 172, 115, 78, 193, 170, 130, 86, 121, 65, 223, 225, 190, 190, 203, 22, 30, 183, 240, 233, 48, 16, 139, 244, 49, 97, 238, 187, 166, 137, 37, 125, 51, 86, 102, 12, 209, 43, 130, 86, 152, 135, 227, 98, 82, 202, 161, 109, 66, 194, 220, 67, 6, 48, 197, 89, 204, 102 }
                         });
                 });
 #pragma warning restore 612, 618

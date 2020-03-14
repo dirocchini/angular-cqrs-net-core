@@ -7,6 +7,7 @@ using Application.Common.Interfaces;
 using Application.Interfaces;
 using Domain.Entities;
 using MediatR;
+using SharedOps;
 
 namespace Application.Users.Commands.Create
 {
@@ -28,7 +29,7 @@ namespace Application.Users.Commands.Create
 
             public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
-                var passConfig = CreatePasswordHash(request.Password);
+                var passConfig = PasswordUtil.CreatePasswordHash(request.Password);
 
                 var user = new User
                 {
@@ -42,15 +43,6 @@ namespace Application.Users.Commands.Create
 
                 await _applicationDbContext.Users.AddAsync(user, cancellationToken);
                 return await _applicationDbContext.SaveChangesAsync(cancellationToken);
-            }
-
-            private (byte[] passwordHash, byte[] passwordSalt) CreatePasswordHash(string requestPassword)
-            {
-                using var hmac = new System.Security.Cryptography.HMACSHA512();
-                var passwordSalt = hmac.Key;
-                var passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(requestPassword));
-
-                return (passwordSalt, passwordHash);
             }
         }
     }

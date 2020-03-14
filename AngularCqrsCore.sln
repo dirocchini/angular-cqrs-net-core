@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "source\AngularCqrsCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "source\AngularCqrsCore.Domain\Domain.csproj", "{01B30E49-C914-4D48-A691-02D280FFC09C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedOps", "source\SharedOps\SharedOps.csproj", "{342DADC6-2C6A-4796-A003-8B357D653824}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{01B30E49-C914-4D48-A691-02D280FFC09C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01B30E49-C914-4D48-A691-02D280FFC09C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01B30E49-C914-4D48-A691-02D280FFC09C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{342DADC6-2C6A-4796-A003-8B357D653824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{342DADC6-2C6A-4796-A003-8B357D653824}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{342DADC6-2C6A-4796-A003-8B357D653824}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{342DADC6-2C6A-4796-A003-8B357D653824}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{EFC1E9A7-D417-4F57-9C0C-F0E6B2E3E31C} = {78088200-17B8-4AE9-98F9-15B57BC430FB}
 		{03D268A3-A8FC-4C15-BFFB-98A5E1D70D63} = {78088200-17B8-4AE9-98F9-15B57BC430FB}
 		{01B30E49-C914-4D48-A691-02D280FFC09C} = {78088200-17B8-4AE9-98F9-15B57BC430FB}
+		{342DADC6-2C6A-4796-A003-8B357D653824} = {78088200-17B8-4AE9-98F9-15B57BC430FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8ED2D80-D6C7-435C-BB69-A1E2C3D5BB64}
