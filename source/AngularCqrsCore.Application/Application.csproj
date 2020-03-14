@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AngularCoreCqrs.Domain\Domain.csproj" />
+    <ProjectReference Include="..\AngularCqrsCore.Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>
