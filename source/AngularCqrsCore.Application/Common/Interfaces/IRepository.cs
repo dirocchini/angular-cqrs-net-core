@@ -19,5 +19,6 @@ namespace Application.Common.Interfaces
         void Update(TEntity entity);
         void UpdateRange(IEnumerable<TEntity> entities);
         void UpdateBulk(IList<TEntity> entities);
+
     }
 }

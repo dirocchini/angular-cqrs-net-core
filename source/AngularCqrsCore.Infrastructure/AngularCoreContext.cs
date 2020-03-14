@@ -21,8 +21,8 @@ namespace Persistence
         }
 
 
-
         public DbSet<User> Users { get; set; }
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())

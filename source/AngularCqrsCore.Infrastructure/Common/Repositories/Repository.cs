@@ -68,9 +68,12 @@ namespace Persistence.Common.Repositories
             _dbContext.BulkUpdate(entities, new BulkConfig() { SetOutputIdentity = true, BatchSize = 10000 });
         }
 
+        
+
         public void UpdateRange(IEnumerable<TEntity> entities)
         {
             _dbContext.UpdateRange(entities);
         }
+        
     }
 }

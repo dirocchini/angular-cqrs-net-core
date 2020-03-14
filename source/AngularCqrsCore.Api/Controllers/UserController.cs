@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Application.Users.Commands.Create;
 using Application.Users.Queries.GetAll;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,13 +9,6 @@ namespace Api.Controllers
     [ApiController]
     public class UserController : BaseController
     {
-        public UserController()
-        {
-                
-        }
-
-
-
         // GET: api/User
         [HttpGet]
         public async Task<UsersVm> Get()
@@ -30,11 +24,12 @@ namespace Api.Controllers
             return "value";
         }
 
-        // POST: api/User
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<long>> Create(CreateUserCommand command)
         {
+            return await Mediator.Send(command);
         }
+
 
         // PUT: api/User/5
         [HttpPut("{id}")]

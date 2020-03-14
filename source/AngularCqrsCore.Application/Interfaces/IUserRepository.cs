@@ -11,6 +11,5 @@ namespace Application.Interfaces
         Task<User> GetByLoginAsync(string login);
 
         Task<List<User>> GetAllAsync();
-
     }
 }
