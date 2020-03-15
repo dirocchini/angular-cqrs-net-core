@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
@@ -17,7 +16,9 @@ namespace Application.Users.Commands.Create
     {
         public string Name { get; set; }
         public string Email { get; set; }
+        [Required]
         public string Login { get; set; }
+        [StringLength(15, MinimumLength = 4, ErrorMessage = "Senha deve conter entre 4 e 15 caracteres")]
         public string Password { get; set; }
 
         public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>

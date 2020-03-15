@@ -28,7 +28,7 @@ namespace Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message.ToString());
+                return BadRequest(ex.Message);
             }
         }
     }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Application.Common.Interfaces;
-using Domain.Common;
 using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
 

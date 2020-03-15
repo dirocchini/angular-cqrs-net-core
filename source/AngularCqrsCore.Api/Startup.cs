@@ -1,6 +1,4 @@
-using Api.Services;
 using Application;
-using Application.Common.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +23,6 @@ namespace Api
             services.AddControllers();
             services.AddPersistence(Configuration);
             services.AddApplication();
-            services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddCors();
 
         }

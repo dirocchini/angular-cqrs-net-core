@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Common.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -11,16 +10,12 @@ namespace Application.Common.Behaviours
     {
         private readonly Stopwatch _timer;
         private readonly ILogger<TRequest> _logger;
-        private readonly ICurrentUserService _currentUserService;
 
-        public RequestPerformanceBehaviour(
-            ILogger<TRequest> logger,
-            ICurrentUserService currentUserService)
+        public RequestPerformanceBehaviour(ILogger<TRequest> logger)
         {
             _timer = new Stopwatch();
 
             _logger = logger;
-            _currentUserService = currentUserService;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
@@ -36,11 +31,9 @@ namespace Application.Common.Behaviours
             if (elapsedMilliseconds > 500)
             {
                 var requestName = typeof(TRequest).Name;
-                var userId = _currentUserService.UserId;
-                var userName = _currentUserService.UserName;
 
                 _logger.LogWarning("AngularCQRSCore Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
-                    requestName, elapsedMilliseconds, userId, userName, request);
+                    requestName, elapsedMilliseconds, -1, "Working on it", request);
             }
 
             return response;

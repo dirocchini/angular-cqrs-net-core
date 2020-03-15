@@ -1,27 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Api.Common;
 using Application.Login.Query.Authorize;
-using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.Extensions.Configuration;
+using SharedOps;
 
 namespace Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class LoginController : BaseController
+    public partial class LoginController : BaseController
     {
+        private readonly IConfiguration _config;
+
+        public LoginController(IConfiguration config)
+        {
+            _config = config;
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Authorize(AuthorizeUserQuery request)
         {
             var user = await Mediator.Send(request);
             if (user == null)
-                return BadRequest("Usuário não autenticado");
+                return Unauthorized();
 
-            return Ok(user);
-        } 
+            return Ok(new { token = new TokenTools(_config).MakeToken(user.Id, user.Login) });
+        }
     }
 }

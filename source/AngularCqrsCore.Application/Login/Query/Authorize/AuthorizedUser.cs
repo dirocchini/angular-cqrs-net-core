@@ -1,8 +1,5 @@
 ﻿using Application.Common.Mappings;
-using Application.Users.Commands.Create;
-using AutoMapper;
 using Domain.Entities;
-using SharedOps;
 
 namespace Application.Login.Query.Authorize
 {

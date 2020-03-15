@@ -5,9 +5,7 @@ using Application.Common.Interfaces;
 using Domain.Common;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.Extensions.Options;
 using Persistence.Configurations;
 
 namespace Persistence
