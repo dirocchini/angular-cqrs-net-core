@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Application.Users.Commands.Create;
 using Application.Users.Queries.GetAll;
 using Microsoft.AspNetCore.Mvc;
@@ -11,17 +12,24 @@ namespace Api.Controllers
     {
         // GET: api/User
         [HttpGet]
-        public async Task<UsersVm> Get()
+        public async Task<IActionResult> Get()
         {
             var users = await Mediator.Send(new GetAllQuery());
-            return users;
+            return Ok(users);
         }
 
         [HttpPost]
-        public async Task<ActionResult<long>> Create(CreateUserCommand command)
+        public async Task<IActionResult> Create(CreateUserCommand command)
         {
-            return await Mediator.Send(command);
+            try
+            {
+                var user = await Mediator.Send(command);
+                return StatusCode(201);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message.ToString());
+            }
         }
-
     }
 }

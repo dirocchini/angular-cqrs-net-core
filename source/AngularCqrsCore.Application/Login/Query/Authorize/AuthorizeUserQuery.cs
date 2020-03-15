@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Interfaces;
+using AutoMapper;
 using MediatR;
 using SharedOps;
 
@@ -17,10 +18,12 @@ namespace Application.Login.Query.Authorize
         public class AuthorizeUserQueryHandler : IRequestHandler<AuthorizeUserQuery, AuthorizedUser>
         {
             private readonly IUserRepository _userRepository;
+            private readonly IMapper _mapper;
 
-            public AuthorizeUserQueryHandler(IUserRepository userRepository)
+            public AuthorizeUserQueryHandler(IUserRepository userRepository, IMapper mapper)
             {
                 _userRepository = userRepository;
+                _mapper = mapper;
             }
 
             public async Task<AuthorizedUser> Handle(AuthorizeUserQuery request, CancellationToken cancellationToken)
@@ -31,9 +34,9 @@ namespace Application.Login.Query.Authorize
 
                     if (user == null) return null;
 
-                    return !PasswordUtil.VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt) 
+                    return request.Password.Trim() != user.Password.Decrypt().Trim()
                         ? null 
-                        : new AuthorizedUser() {Id = user.Id, Name = user.Name, Login = user.Login};
+                        : _mapper.Map<AuthorizedUser>(user);
                 }
                 catch (Exception e)
                 {

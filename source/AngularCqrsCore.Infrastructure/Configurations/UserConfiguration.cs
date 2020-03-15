@@ -10,17 +10,13 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            var hashes = PasswordUtil.CreatePasswordHash("123");
-
             var admin = new User()
             {
                 Id = 1,
                 Name = "Administrator",
                 Login = "admin",
-                Password = "123",
-                Created = DateTime.Now,
-                PasswordHash = hashes.passwordHash,
-                PasswordSalt = hashes.passwordSalt
+                Password = "123".Crypt(),
+                Created = DateTime.Now
             };
 
             builder
@@ -50,15 +46,7 @@ namespace Persistence.Configurations
 
             builder
                 .Property(e => e.Password)
-                .HasColumnType("varchar (50)")
-                .IsRequired();
-
-            builder
-                .Property(e => e.PasswordHash)
-                .IsRequired();
-
-            builder
-                .Property(e => e.PasswordSalt)
+                .HasColumnType("varchar (500)")
                 .IsRequired();
 
             builder

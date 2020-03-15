@@ -15,10 +15,13 @@ namespace Api.Controllers
     public class LoginController : BaseController
     {
         [HttpPost]
-        public async Task<bool> Authorize(AuthorizeUserQuery request)
+        public async Task<IActionResult> Authorize(AuthorizeUserQuery request)
         {
             var user = await Mediator.Send(request);
-            return user != null;
-        }
+            if (user == null)
+                return BadRequest("Usuário não autenticado");
+
+            return Ok(user);
+        } 
     }
 }

@@ -26,4 +26,4 @@ namespace Application.Common.Behaviours
             _logger.LogInformation("AngularCQRSCore Request: {Name} - User: {user} - Request: {@Request}", requestName, _currentUserService.UserName, request);
         }
     }
-    }
+}

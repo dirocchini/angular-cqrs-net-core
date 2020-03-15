@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Api.Controllers
 {
-    public class BaseController : Controller
+    public class BaseController : ControllerBase
     {
         private IMediator _mediator;
 
