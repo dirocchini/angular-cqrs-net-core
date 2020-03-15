@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AngularCqrsCore.Domain\Domain.csproj" />
+    <ProjectReference Include="..\SharedOps\SharedOps.csproj" />
   </ItemGroup>
 
 </Project>

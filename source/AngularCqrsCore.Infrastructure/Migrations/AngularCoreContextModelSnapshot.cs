@@ -3,8 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Persistence;
 
 namespace Persistence.Migrations
 {
@@ -51,15 +49,12 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("varchar (50)");
-
-                    b.Property<byte[]>("PasswordHash")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<byte[]>("PasswordSalt")
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("varchar (500)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Login")
+                        .IsUnique();
 
                     b.ToTable("Users");
 
@@ -67,42 +62,12 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2020, 3, 14, 1, 8, 57, 68, DateTimeKind.Local).AddTicks(3977),
+                            Created = new DateTime(2020, 3, 15, 16, 41, 0, 462, DateTimeKind.Local).AddTicks(9515),
                             CreatedBy = 0,
                             LastModifiedBy = 0,
                             Login = "admin",
                             Name = "Administrator",
-                            Password = "000"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Created = new DateTime(2020, 3, 14, 1, 8, 57, 69, DateTimeKind.Local).AddTicks(4292),
-                            CreatedBy = 0,
-                            LastModifiedBy = 0,
-                            Login = "diego-user",
-                            Name = "Diego",
-                            Password = "111"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Created = new DateTime(2020, 3, 14, 1, 8, 57, 69, DateTimeKind.Local).AddTicks(4331),
-                            CreatedBy = 0,
-                            LastModifiedBy = 0,
-                            Login = "iago-user",
-                            Name = "iago",
-                            Password = "222"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Created = new DateTime(2020, 3, 14, 1, 8, 57, 69, DateTimeKind.Local).AddTicks(4334),
-                            CreatedBy = 0,
-                            LastModifiedBy = 0,
-                            Login = "fernando-user",
-                            Name = "Fernando",
-                            Password = "333"
+                            Password = "Yaaca3BSPqo="
                         });
                 });
 #pragma warning restore 612, 618

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Common.Interfaces;
 using FluentValidation;
 using MediatR;
 
@@ -12,12 +11,10 @@ namespace Application.Common.Behaviours
         where TRequest : IRequest<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
-        private readonly ICurrentUserService _currentUser;
 
-        public RequestValidationBehavior(IEnumerable<IValidator<TRequest>> validators, ICurrentUserService currentUser)
+        public RequestValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
         {
             _validators = validators;
-            _currentUser = currentUser;
         }
 
         public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)

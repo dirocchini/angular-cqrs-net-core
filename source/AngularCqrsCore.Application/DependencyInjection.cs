@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 using Application.Common.Behaviours;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
