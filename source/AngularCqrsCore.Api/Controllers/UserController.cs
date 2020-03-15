@@ -2,10 +2,12 @@
 using System.Threading.Tasks;
 using Application.Users.Commands.Create;
 using Application.Users.Queries.GetAll;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class UserController : BaseController
