@@ -12,7 +12,7 @@ namespace Api.Controllers
     [ApiController]
     public class UserController : BaseController
     {
-        // GET: api/User
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -20,6 +20,7 @@ namespace Api.Controllers
             return Ok(users);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserCommand command)
         {
