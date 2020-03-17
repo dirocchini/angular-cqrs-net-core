@@ -9,12 +9,12 @@ import { map } from 'rxjs/operators';
 })
 export class AuthService {
 
-  baseUrl = "http://localhost:5000/login"
+  baseUrl = 'http://localhost:5000/';
 
   constructor(private http: HttpClient) { }
 
   login(model: any){
-    return this.http.post(this.baseUrl, model)
+    return this.http.post(this.baseUrl + 'login', model)
     .pipe(
       map((response: any) => {
       const user = response;
@@ -23,5 +23,9 @@ export class AuthService {
         }
       })
     );
+  }
+
+  register(model: any) {
+    return this.http.post(this.baseUrl + 'user', model);
   }
 }

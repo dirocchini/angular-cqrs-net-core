@@ -22,7 +22,7 @@ namespace Api.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateUserCommand command)
+        public async Task<IActionResult> AddNewUser(CreateUserCommand command)
         {
             try
             {
