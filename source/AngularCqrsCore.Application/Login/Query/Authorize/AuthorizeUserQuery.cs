@@ -26,21 +26,13 @@ namespace Application.Login.Query.Authorize
 
             public async Task<AuthorizedUser> Handle(AuthorizeUserQuery request, CancellationToken cancellationToken)
             {
-                try
-                {
-                    var user = await _userRepository.GetByLoginAsync(request.Login);
+                var user = await _userRepository.GetByLoginAsync(request.Login);
 
-                    if (user == null) return null;
+                if (user == null) return null;
 
-                    return request.Password.Trim() != user.Password.Decrypt().Trim()
-                        ? null 
-                        : _mapper.Map<AuthorizedUser>(user);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
+                return request.Password.Trim() != user.Password.Decrypt().Trim()
+                    ? null
+                    : _mapper.Map<AuthorizedUser>(user);
             }
         }
     }
