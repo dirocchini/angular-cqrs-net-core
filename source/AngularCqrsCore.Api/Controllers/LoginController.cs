@@ -24,8 +24,6 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Authorize(AuthorizeUserQuery request)
         {
-            throw new Exception("blablabla");
-
             var user = await Mediator.Send(request);
             if (user == null)
                 return Unauthorized();
