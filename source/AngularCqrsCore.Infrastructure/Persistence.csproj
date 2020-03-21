@@ -24,4 +24,10 @@
     <ProjectReference Include="..\AngularCqrsCore.Application\Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="DataSeed\users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -16,6 +16,8 @@ namespace Persistence
         {
             if (Database.GetPendingMigrations().Any())
                 Database.Migrate();
+
+            Seed.SeedUsers(this);
         }
 
 
