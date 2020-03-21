@@ -20,6 +20,7 @@ namespace Persistence
 
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
@@ -44,6 +45,7 @@ namespace Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new PhotoConfiguration());
 
 
             base.OnModelCreating(modelBuilder);
