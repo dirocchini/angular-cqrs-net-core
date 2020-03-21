@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 using Application.Common.Interfaces;
 using Application.Common.Mappings;
 using Application.Interfaces;
@@ -17,15 +20,22 @@ namespace Application.Users.Commands.Create
         #region [ PROPS ]
 
         public string Name { get; set; }
-        
         public string Email { get; set; }
-        
         [Required]
         public string Login { get; set; }
-        
         [Required]
         [StringLength(15, MinimumLength = 4, ErrorMessage = "Senha deve conter entre 4 e 15 caracteres")]
         public string Password { get; set; }
+        public string Gender { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public string KnownAs { get; set; }
+        public DateTime LastActive { get; set; }
+        public string Introduction { get; set; }
+        public string LookingFor { get; set; }
+        public string Interests { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public ICollection<UserPhotos> Photos { get; set; }
 
         #endregion
 
@@ -48,7 +58,7 @@ namespace Application.Users.Commands.Create
 
                 var userExists = await _userRepository.GetByLoginAsync(user.Login);
 
-                if(userExists is object)
+                if (userExists is object)
                     throw new Exception("Login já existe na base");
 
                 await _applicationDbContext.Users.AddAsync(user, cancellationToken);
@@ -60,7 +70,25 @@ namespace Application.Users.Commands.Create
         {
             profile.CreateMap<CreateUserCommand, User>()
                 .ForMember(d => d.Password, opt => opt.MapFrom(s => s.Password.Crypt()))
-                .ForMember(d => d.Login, opt => opt.MapFrom(s => s.Login.ToLower()));
+                .ForMember(d => d.Login, opt => opt.MapFrom(s => s.Login.ToLower()))
+                .ForMember(d => d.Photos, opt => opt.MapFrom(s => s.Photos))
+                ;
+        }
+    }
+
+    public class UserPhotos : IMapFrom<Photo>
+    {
+        public string Url { get; set; }
+        public string Description { get; set; }
+        public bool IsMain { get; set; }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<UserPhotos, Photo>()
+                .ForMember(d => d.Url, opt => opt.MapFrom(s => s.Url))
+                .ForMember(d => d.Description, opt => opt.MapFrom(s => s.Description))
+                .ForMember(d => d.IsMain, opt => opt.MapFrom(s => s.IsMain))
+                ;
         }
     }
 }
