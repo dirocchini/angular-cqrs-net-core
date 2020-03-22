@@ -30,7 +30,7 @@ namespace Application.Users.Queries.Get
         #endregion
     }
 
-    public class UserPhotos
+    public class UserPhotos : IMapFrom<Photo>
     {
         public string Url { get; set; }
         public string Description { get; set; }
