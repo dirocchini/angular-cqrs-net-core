@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.ExceptionServices;
 using Application.Common.Mappings;
 using AutoMapper;
 using Domain.Entities;
@@ -23,14 +25,21 @@ namespace Application.Users.Queries.GetAll
         public string Interests { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-        public ICollection<PhotoDto> Photos { get; set; }
+        public string PhotoUrl { get; set; }
+        //public ICollection<PhotoDto> Photos { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<User, UserDto>()
                 .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
-                .ForMember(d => d.Login, opt => opt.MapFrom(s => s.Login));
+                .ForMember(d => d.Login, opt => opt.MapFrom(s => s.Login))
+                .ForMember(d => d.PhotoUrl, opt => opt.MapFrom(s => GetPhotoUrl(s.Photos)));
+        }
+
+        private string GetPhotoUrl(ICollection<Photo> photos)
+        {
+            return photos.FirstOrDefault(f => f.IsMain)?.Url ?? "NO PHOTO TO DISPLAY";
         }
     }
 
