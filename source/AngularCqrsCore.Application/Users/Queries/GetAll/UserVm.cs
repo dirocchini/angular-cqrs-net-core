@@ -8,7 +8,7 @@ using Domain.Entities;
 
 namespace Application.Users.Queries.GetAll
 {
-    public class UserDto : IMapFrom<User>
+    public class UserVm : IMapFrom<User>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,6 +17,7 @@ namespace Application.Users.Queries.GetAll
 
 
         public string Gender { get; set; }
+        public int Age { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string KnownAs { get; set; }
         public DateTime LastActive { get; set; }
@@ -30,7 +31,7 @@ namespace Application.Users.Queries.GetAll
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<User, UserDto>()
+            profile.CreateMap<User, UserVm>()
                 .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
                 .ForMember(d => d.Login, opt => opt.MapFrom(s => s.Login))
@@ -39,7 +40,7 @@ namespace Application.Users.Queries.GetAll
 
         private string GetPhotoUrl(ICollection<Photo> photos)
         {
-            return photos.FirstOrDefault(f => f.IsMain)?.Url ?? "NO PHOTO TO DISPLAY";
+            return photos.FirstOrDefault(f => f.IsMain)?.Url ?? null;
         }
     }
 
