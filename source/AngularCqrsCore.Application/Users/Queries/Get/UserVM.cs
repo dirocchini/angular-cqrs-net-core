@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.ExceptionServices;
+using System.Text;
 using Application.Common.Mappings;
+using Application.Users.Queries.GetAll;
 using AutoMapper;
 using Domain.Entities;
 
-namespace Application.Users.Queries.GetAll
+namespace Application.Users.Queries.Get
 {
-    public class UserDto : IMapFrom<User>
+    public class UserVm : IMapFrom<User>
     {
+        #region [ PROPS ]
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Login { get; set; }
-
-
+        public string Password { get; set; }
         public string Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string KnownAs { get; set; }
@@ -25,25 +27,28 @@ namespace Application.Users.Queries.GetAll
         public string Interests { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-        public string PhotoUrl { get; set; }
-        //public ICollection<PhotoDto> Photos { get; set; }
+        public string  PhotoUrl { get; set; }
+        //public ICollection<UserPhotos> Photos { get; set; }
+
+
+        #endregion
+
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<User, UserDto>()
-                .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
-                .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
-                .ForMember(d => d.Login, opt => opt.MapFrom(s => s.Login))
+            profile.CreateMap<User, UserVm>()
                 .ForMember(d => d.PhotoUrl, opt => opt.MapFrom(s => GetPhotoUrl(s.Photos)));
         }
 
-        private string GetPhotoUrl(ICollection<Photo> photos)
+        private string GetPhotoUrl(IEnumerable<Photo> photos)
         {
             return photos.FirstOrDefault(f => f.IsMain)?.Url ?? "NO PHOTO TO DISPLAY";
         }
     }
 
-    public class PhotoDto : IMapFrom<Photo>
+
+
+    public class UserPhotos : IMapFrom<Photo>
     {
         public string Url { get; set; }
         public string Description { get; set; }

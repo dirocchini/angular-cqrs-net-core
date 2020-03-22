@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AngularCoreContext))]
-    partial class AngularCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20200321211330_Table-UsersPhotos-Added")]
+    partial class TableUsersPhotosAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,9 +90,6 @@ namespace Persistence.Migrations
                     b.Property<string>("Interests")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Introduction")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("KnownAs")
                         .HasColumnType("nvarchar(max)");
 
@@ -129,7 +128,7 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2020, 3, 21, 18, 48, 33, 456, DateTimeKind.Local).AddTicks(7458),
+                            Created = new DateTime(2020, 3, 21, 18, 13, 29, 904, DateTimeKind.Local).AddTicks(4647),
                             CreatedBy = 0,
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastActive = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
