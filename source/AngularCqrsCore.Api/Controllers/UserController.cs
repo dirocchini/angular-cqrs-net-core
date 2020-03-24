@@ -22,10 +22,10 @@ namespace Api.Controllers
             return Ok(users);
         }
 
-        [HttpPost("GetById")]
-        public async Task<IActionResult> GetById(GetQuery request)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            var users = await Mediator.Send(request);
+            var users = await Mediator.Send(new GetQuery { Id = id });
             return Ok(users);
         }
 
