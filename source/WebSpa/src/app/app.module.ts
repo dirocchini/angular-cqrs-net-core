@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -21,6 +22,7 @@ import { MembersCardComponent } from './members/members-card/members-card.compon
 import { AuthGuard } from './_guards/auth.guard';
 import { UserService } from './_services/user.service';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -44,6 +46,7 @@ export function tokenGetter() {
       FormsModule,
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
+      TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
          config: {
@@ -53,7 +56,13 @@ export function tokenGetter() {
          }
       })
    ],
-   providers: [AuthService, ErrorInterceptorProvider, AuthGuard, UserService],
+   providers: [
+      AuthService,
+      ErrorInterceptorProvider,
+      AuthGuard,
+      UserService,
+      MemberDetailResolver
+   ],
    bootstrap: [AppComponent]
 })
 export class AppModule {}
