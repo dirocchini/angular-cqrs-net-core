@@ -24,6 +24,8 @@ import { UserService } from './_services/user.service';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 
+import { NgxGalleryModule } from 'ngx-gallery-9';
+
 export function tokenGetter() {
    return localStorage.getItem('token');
 }
@@ -54,7 +56,8 @@ export function tokenGetter() {
             whitelistedDomains: ['localhost:4200'],
             blacklistedRoutes: ['localhost:4200/login']
          }
-      })
+      }),
+      NgxGalleryModule
    ],
    providers: [
       AuthService,
