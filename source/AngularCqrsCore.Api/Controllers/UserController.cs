@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Application.Users.Commands.Create;
 using Application.Users.Commands.Delete;
+using Application.Users.Commands.Update;
 using Application.Users.Queries.Get;
 using Application.Users.Queries.GetAll;
 using Microsoft.AspNetCore.Authorization;
@@ -53,6 +54,23 @@ namespace Api.Controllers
             {
                 var user = await Mediator.Send(command);
                 return StatusCode(201);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser(UpdateUserCommand request)
+        {
+            try
+            {
+                var ret = await Mediator.Send(request);
+                if (ret)
+                    return Ok();
+
+                return NotFound();
             }
             catch (Exception ex)
             {
