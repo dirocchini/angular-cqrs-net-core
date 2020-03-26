@@ -42,6 +42,9 @@ namespace SharedOps
 
             public string DecodeToken(string token)
             {
+                if (string.IsNullOrEmpty(token))
+                    return "-1";
+
                 token = token.Replace("Bearer ", "");
 
                 var stream = token;

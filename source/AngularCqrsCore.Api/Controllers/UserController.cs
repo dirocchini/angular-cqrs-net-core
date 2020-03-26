@@ -75,6 +75,10 @@ namespace Api.Controllers
         {
             try
             {
+
+                var token2 = Request.Headers["Authorization"];
+                var token = Request.Headers["token"];
+
                 var ret = await Mediator.Send(command);
                 if (ret)
                     return NoContent();

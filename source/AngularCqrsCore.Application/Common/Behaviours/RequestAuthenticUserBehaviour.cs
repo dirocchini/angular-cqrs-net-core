@@ -25,7 +25,9 @@ namespace Application.Common.Behaviours
                 var prop = (request as CheckUserValidation).TokenUserId;
                 var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == Convert.ToInt32(prop));
 
-                if ((/*wants to change prop from this user*/ request as CheckUserValidation).Id != /*but token is configured for this user*/ user.Id)
+                
+
+                if (user == null || (/*wants to change prop from this user*/ request as CheckUserValidation).Id != /*but token is configured for this user*/ user.Id)
                     throw new UnauthorizedAccessException();
             }
 

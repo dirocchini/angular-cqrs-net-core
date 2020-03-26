@@ -9,7 +9,6 @@ import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { TestBed } from '@angular/core/testing';
 
-
 const httpOptions = {
    headers: new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -20,7 +19,6 @@ const httpOptions = {
    providedIn: 'root'
 })
 export class UserService {
-
    baseUrl = environment.apiUrl;
    constructor(private http: HttpClient) {}
 
@@ -30,5 +28,9 @@ export class UserService {
 
    getUser(id: number): Observable<User> {
       return this.http.get<User>(this.baseUrl + 'user/' + id, httpOptions);
+   }
+
+   updateUser(id: number, user: User) {
+      return this.http.put(this.baseUrl + 'user/' + id, user, httpOptions);
    }
 }

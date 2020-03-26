@@ -20,16 +20,20 @@ namespace Api.Filters
         }
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            var command = context.ActionArguments["command"];
-            var id = context.ActionArguments["id"];
-
-            if (command is CheckUserValidation)
+            if (context.ActionArguments.ContainsKey("command"))
             {
-                var token = context.HttpContext.Request.Headers["Authorization"];
-                var userIdFromToken = new TokenTools(_config).DecodeToken(token);
+                var command = context.ActionArguments["command"];
+                var id = context.ActionArguments["id"];
 
-                (command as CheckUserValidation).TokenUserId = int.Parse(userIdFromToken);
-                (command as CheckUserValidation).Id = Convert.ToInt16((id));
+                if (command is CheckUserValidation)
+                {
+                    var token2 = context.HttpContext.Request.Headers["Authorization"];
+                    var token = context.HttpContext.Request.Headers["token"];
+                    var userIdFromToken = new TokenTools(_config).DecodeToken(token);
+
+                    (command as CheckUserValidation).TokenUserId = int.Parse(userIdFromToken);
+                    (command as CheckUserValidation).Id = Convert.ToInt16((id));
+                }
             }
 
         }
