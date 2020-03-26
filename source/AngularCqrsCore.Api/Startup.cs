@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text;
+using Api.Filters;
 using Api.Helpers;
 using Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -40,6 +41,14 @@ namespace Api
                     ValidateIssuer = false,
                     ValidateAudience = false
                 });
+
+
+            services.AddMvc(
+                config =>
+                {
+                    config.Filters.Add(new AuthorizationFilter(Configuration));
+                });
+
         }
 
 

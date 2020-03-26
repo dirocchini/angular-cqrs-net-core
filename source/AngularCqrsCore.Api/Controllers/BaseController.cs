@@ -17,5 +17,9 @@ namespace Api.Controllers
             get => HttpContext.Session.GetObjectFromJson<AuthorizedUser>("User");
             set => HttpContext.Session.SetObjectAsJson("User", value);
         }
+
+        public BaseController()
+        {
+        }
     }
 }

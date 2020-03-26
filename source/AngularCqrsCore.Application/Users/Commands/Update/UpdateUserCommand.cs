@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Common;
 using Application.Common.Interfaces;
 using Application.Common.Mappings;
 using AutoMapper;
@@ -13,8 +14,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.Commands.Update
 {
-    public class UpdateUserCommand : IRequest<bool>, IMapFrom<User>
+    public class UpdateUserCommand : CheckUserValidation, IRequest<bool>, IMapFrom<User>
     {
+        public int TokenUserId { get; set; }
         public int  Id { get; set; }
         public string Introduction { get; set; }
         public string LookingFor { get; set; }
@@ -37,11 +39,7 @@ namespace Application.Users.Commands.Update
 
             public async Task<bool> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
             {
-                var token = ClaimTypes.NameIdentifier;
-                var userFromToken = _applicationContext.Users.FirstOrDefault(u => u.Id == int.Parse(token));
-
-                if(request.Id != userFromToken.Id)
-                    throw new UnauthorizedAccessException();
+                
 
                 var user = await _applicationContext.Users.FirstOrDefaultAsync(u => u.Id == request.Id);
 
@@ -56,5 +54,7 @@ namespace Application.Users.Commands.Update
 
      
         }
+
+        
     }
 }

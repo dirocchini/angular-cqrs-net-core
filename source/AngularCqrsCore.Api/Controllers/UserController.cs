@@ -8,6 +8,8 @@ using Application.Users.Queries.Get;
 using Application.Users.Queries.GetAll;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using SharedOps;
 
 namespace Api.Controllers
 {
@@ -16,6 +18,13 @@ namespace Api.Controllers
     [ApiController]
     public class UserController : BaseController
     {
+        private readonly IConfiguration _config;
+
+        public UserController(IConfiguration config )
+        {
+            _config = config;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -31,11 +40,11 @@ namespace Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteUser(DeleteUserCommand request)
+        public async Task<IActionResult> DeleteUser(DeleteUserCommand command)
         {
             try
             {
-                if(await Mediator.Send(request))
+                if(await Mediator.Send(command))
                     return Ok();
 
                 return BadRequest("Usuário não encontrado");
@@ -62,13 +71,11 @@ namespace Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, UpdateUserCommand request)
+        public async Task<IActionResult> UpdateUser(int id, UpdateUserCommand command)
         {
             try
             {
-                request.Id = id;
-
-                var ret = await Mediator.Send(request);
+                var ret = await Mediator.Send(command);
                 if (ret)
                     return NoContent();
 
