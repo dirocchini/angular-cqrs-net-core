@@ -61,16 +61,22 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateUser(UpdateUserCommand request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UpdateUserCommand request)
         {
             try
             {
+                request.Id = id;
+
                 var ret = await Mediator.Send(request);
                 if (ret)
-                    return Ok();
+                    return NoContent();
 
-                return NotFound();
+                throw new Exception($"Update user {id} failed on save");
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized();
             }
             catch (Exception ex)
             {

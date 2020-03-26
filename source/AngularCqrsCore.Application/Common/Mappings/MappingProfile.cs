@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Application.Users.Commands.Update;
 using AutoMapper;
+using Domain.Entities;
 
 namespace Application.Common.Mappings
 {
@@ -10,6 +12,9 @@ namespace Application.Common.Mappings
         public MappingProfile()
         {
             ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
+
+            CreateMap<UpdateUserCommand, User>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
         }
 
         private void ApplyMappingsFromAssembly(Assembly assembly)

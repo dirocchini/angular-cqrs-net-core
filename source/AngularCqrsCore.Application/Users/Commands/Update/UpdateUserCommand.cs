@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
+using Application.Common.Mappings;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
@@ -11,17 +13,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.Commands.Update
 {
-    public class UpdateUserCommand : IRequest<bool>
+    public class UpdateUserCommand : IRequest<bool>, IMapFrom<User>
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string Gender { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public string KnownAs { get; set; }
-        public DateTime LastActive { get; set; }
+        public int  Id { get; set; }
         public string Introduction { get; set; }
         public string LookingFor { get; set; }
         public string Interests { get; set; }
@@ -43,17 +37,24 @@ namespace Application.Users.Commands.Update
 
             public async Task<bool> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
             {
-                var user =await _applicationContext.Users.FirstOrDefaultAsync(u => u.Id == request.Id);
+                var token = ClaimTypes.NameIdentifier;
+                var userFromToken = _applicationContext.Users.FirstOrDefault(u => u.Id == int.Parse(token));
+
+                if(request.Id != userFromToken.Id)
+                    throw new UnauthorizedAccessException();
+
+                var user = await _applicationContext.Users.FirstOrDefaultAsync(u => u.Id == request.Id);
 
                 if (user == null) return false;
 
-                user = _mapper.Map<UpdateUserCommand, User>(request);
+                user = _mapper.Map(request, user);
 
-                _applicationContext.Users.Update(user);
                 await _applicationContext.SaveChangesAsync(cancellationToken);
 
                 return true;
             }
+
+     
         }
     }
 }
