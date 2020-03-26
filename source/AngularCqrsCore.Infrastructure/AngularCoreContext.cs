@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
+using Application.Interfaces;
 using Domain.Common;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ namespace Persistence
 
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Photo> Photos { get; set; }
+        public IPhotoRepository Photos { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
