@@ -31,7 +31,7 @@ namespace Application.Users.Queries.Get
         public string  PhotoUrl { get; set; }
         
         public ICollection<UserPhotos> Photos { get; set; }
-
+         
 
         #endregion
 

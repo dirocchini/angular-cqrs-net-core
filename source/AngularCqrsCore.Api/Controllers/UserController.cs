@@ -3,10 +3,13 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Application.Users.Commands.Create;
 using Application.Users.Commands.Delete;
+using Application.Users.Commands.Update;
 using Application.Users.Queries.Get;
 using Application.Users.Queries.GetAll;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using SharedOps;
 
 namespace Api.Controllers
 {
@@ -15,6 +18,13 @@ namespace Api.Controllers
     [ApiController]
     public class UserController : BaseController
     {
+        private readonly IConfiguration _config;
+
+        public UserController(IConfiguration config )
+        {
+            _config = config;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -30,11 +40,11 @@ namespace Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteUser(DeleteUserCommand request)
+        public async Task<IActionResult> DeleteUser(DeleteUserCommand command)
         {
             try
             {
-                if(await Mediator.Send(request))
+                if(await Mediator.Send(command))
                     return Ok();
 
                 return BadRequest("Usuário não encontrado");
@@ -53,6 +63,31 @@ namespace Api.Controllers
             {
                 var user = await Mediator.Send(command);
                 return StatusCode(201);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UpdateUserCommand command)
+        {
+            try
+            {
+
+                var token2 = Request.Headers["Authorization"];
+                var token = Request.Headers["token"];
+
+                var ret = await Mediator.Send(command);
+                if (ret)
+                    return NoContent();
+
+                throw new Exception($"Update user {id} failed on save");
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized();
             }
             catch (Exception ex)
             {

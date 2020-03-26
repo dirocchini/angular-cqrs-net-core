@@ -39,5 +39,20 @@ namespace SharedOps
 
                 return tokenHandler.WriteToken(token);
             }
+
+            public string DecodeToken(string token)
+            {
+                if (string.IsNullOrEmpty(token))
+                    return "-1";
+
+                token = token.Replace("Bearer ", "");
+
+                var stream = token;
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(stream);
+                var tokenS = handler.ReadToken(stream) as JwtSecurityToken;
+
+                return tokenS.Payload["nameid"].ToString();
+            }
         }
 }
