@@ -12,12 +12,14 @@ using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
+
+
 namespace Application.Users.Commands.Update
 {
     public class UpdateUserCommand : CheckUserValidation, IRequest<bool>, IMapFrom<User>
     {
         public int TokenUserId { get; set; }
-        public int  Id { get; set; }
+        public int Id { get; set; }
         public string Introduction { get; set; }
         public string LookingFor { get; set; }
         public string Interests { get; set; }
@@ -39,7 +41,7 @@ namespace Application.Users.Commands.Update
 
             public async Task<bool> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
             {
-                
+
 
                 var user = await _applicationContext.Users.FirstOrDefaultAsync(u => u.Id == request.Id);
 
@@ -52,9 +54,9 @@ namespace Application.Users.Commands.Update
                 return true;
             }
 
-     
+
         }
 
-        
+
     }
 }

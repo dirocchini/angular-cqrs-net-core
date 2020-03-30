@@ -27,8 +27,7 @@ namespace Api.Filters
 
                 if (command is CheckUserValidation)
                 {
-                    var token2 = context.HttpContext.Request.Headers["Authorization"];
-                    var token = context.HttpContext.Request.Headers["token"];
+                    var token = context.HttpContext.Request.Headers["Authorization"];
                     var userIdFromToken = new TokenTools(_config).DecodeToken(token);
 
                     (command as CheckUserValidation).TokenUserId = int.Parse(userIdFromToken);
