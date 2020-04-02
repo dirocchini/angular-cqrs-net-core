@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Api.Dto;
 using Api.Helpers;
 using Application.Photos.Commands.Create;
+using Application.Photos.Commands.Update;
 using Application.Photos.Queries.Get;
-using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,15 +35,21 @@ namespace Api.Controllers
             _createPhotoCommand.File = Request.Form.Files[0];
             _createPhotoCommand.UserId = id;
             var photo = await Mediator.Send(_createPhotoCommand);
-            
+
             return Ok(photo);
         }
 
         [HttpGet(Name = "GetPhoto")]
         public async Task<IActionResult> GetPhoto(int id)
         {
-            var photo = await Mediator.Send(new GetPhotoQuery() { Id = id });
+            var photo = await Mediator.Send(new GetPhotoQuery() {Id = id});
             return Ok(photo);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> SetMainPhoto(int id, UpdatePhotoCommand request)
+        {
+            return Ok(await Mediator.Send(request));
         }
     }
 }
