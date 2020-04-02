@@ -4,3 +4,11 @@ img.img-thumbnail{
    margin-bottom: 2px;
    margin-top: 5px;
 }
+
+.nv-file-over {
+   border: dotted 3px red;
+}
+
+input[type=file] {
+   color: transparent;
+}
