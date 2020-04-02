@@ -13,6 +13,7 @@ namespace Persistence
 {
     public sealed class AngularCoreContext : DbContext, IApplicationDbContext
     {
+
         public AngularCoreContext(DbContextOptions<AngularCoreContext> options) : base(options)
         {
             if (Database.GetPendingMigrations().Any())
@@ -25,7 +26,7 @@ namespace Persistence
 
 
         public DbSet<User> Users { get; set; }
-        public IPhotoRepository Photos { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {

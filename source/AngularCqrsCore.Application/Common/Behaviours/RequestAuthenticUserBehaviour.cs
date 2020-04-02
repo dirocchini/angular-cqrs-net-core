@@ -20,16 +20,16 @@ namespace Application.Common.Behaviours
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            if (request is CheckUserValidation)
-            {
-                var prop = (request as CheckUserValidation).TokenUserId;
-                var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == Convert.ToInt32(prop));
+            //if (request is CheckUserValidation)
+            //{
+            //    var prop = (request as CheckUserValidation).TokenUserId;
+            //    var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == Convert.ToInt32(prop));
 
                 
 
-                if (user == null || (/*wants to change prop from this user*/ request as CheckUserValidation).Id != /*but token is configured for this user*/ user.Id)
-                    throw new UnauthorizedAccessException();
-            }
+            //    if (user == null || (/*wants to change prop from this user*/ request as CheckUserValidation).Id != /*but token is configured for this user*/ user.Id)
+            //        throw new UnauthorizedAccessException();
+            //}
 
             return await next();
         }

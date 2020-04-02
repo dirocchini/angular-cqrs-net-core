@@ -31,6 +31,7 @@ namespace SharedOps
                 {
                     Subject = new ClaimsIdentity(claims),
                     Expires = DateTime.Now.AddDays(1),
+
                     SigningCredentials = creds
                 };
 

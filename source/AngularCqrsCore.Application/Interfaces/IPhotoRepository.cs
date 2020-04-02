@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using Domain.Entities;
 
 namespace Application.Interfaces
@@ -7,7 +8,7 @@ namespace Application.Interfaces
     {
         void Authenticate(string cloudName, string api, string apiSecret);
 
-        void SavePhoto();
+        (string url, string publicId)? SavePhoto(string fileName, Stream content);
         
         IEnumerable<Photo> GetPhotos();
     }

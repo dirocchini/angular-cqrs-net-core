@@ -34,7 +34,6 @@ namespace Api.Filters
                     (command as CheckUserValidation).Id = Convert.ToInt16((id));
                 }
             }
-
         }
 
         public void OnActionExecuted(ActionExecutedContext context)

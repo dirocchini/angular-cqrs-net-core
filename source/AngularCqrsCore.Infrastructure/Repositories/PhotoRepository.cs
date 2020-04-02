@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Application.Interfaces;
 using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Domain.Entities;
 using Persistence.Common.Repositories;
 
@@ -26,9 +28,21 @@ namespace Persistence.Repositories
             _cloudinary = new Cloudinary(account);
         }
 
-        public void SavePhoto()
+        public (string url, string publicId)? SavePhoto(string fileName, Stream content)
         {
-            
+            if (content.Length > 0)
+            {
+                var upload = new ImageUploadParams()
+                {
+                    File = new FileDescription(fileName, content),
+                    Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
+                };
+
+                var photo = _cloudinary.Upload(upload);
+                return (url: photo.Uri.ToString(), publicId: photo.PublicId);
+            }
+
+            return null;
         }
 
         public IEnumerable<Photo> GetPhotos()
