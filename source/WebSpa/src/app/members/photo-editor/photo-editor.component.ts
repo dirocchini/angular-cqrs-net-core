@@ -3,6 +3,8 @@ import { Photo } from 'src/app/_models/photo';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from '../../../environments/environment';
 import { AuthService } from 'src/app/_services/auth.service';
+import { UserService } from 'src/app/_services/user.service';
+import { AlertifyService } from 'src/app/_services/alertify.service';
 
 @Component({
    selector: 'app-photo-editor',
@@ -16,7 +18,11 @@ export class PhotoEditorComponent implements OnInit {
    response: string;
    baseUrl = environment.apiUrl;
 
-   constructor(private authService: AuthService) {
+   constructor(
+      private authService: AuthService,
+      private userService: UserService,
+      private aletify: AlertifyService
+   ) {
       this.uploader = new FileUploader({
          url:
             this.baseUrl +
@@ -52,7 +58,7 @@ export class PhotoEditorComponent implements OnInit {
       this.uploader.response.subscribe(res => (this.response = res));
 
       this.uploader.onSuccessItem = (item, response, status, headers) => {
-         if(response) {
+         if (response) {
             const res: Photo = JSON.parse(response);
             const photo = {
                id: res.id,
@@ -62,11 +68,24 @@ export class PhotoEditorComponent implements OnInit {
             };
             this.photos.push(photo);
          }
-      }
+      };
    }
 
    public fileOverBase(e: any): void {
       this.hasBaseDropZoneOver = e;
+   }
+
+   public setMainPhoto(photo: Photo) {
+      this.userService
+         .setMainPhoto(this.authService.decodedToken.nameid, photo.id)
+         .subscribe(
+            () => {
+               console.log('photo is now main');
+            },
+            error => {
+               this.aletify.error(error);
+            }
+         );
    }
 
    ngOnInit() {}
