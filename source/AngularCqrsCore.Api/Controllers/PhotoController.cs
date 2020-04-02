@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Api.Dto;
 using Api.Helpers;
 using Application.Photos.Commands.Create;
+using Application.Photos.Commands.SetMain;
 using Application.Photos.Commands.Update;
 using Application.Photos.Queries.Get;
 using Microsoft.AspNetCore.Authorization;
@@ -16,7 +17,7 @@ using SharedOps;
 namespace Api.Controllers
 {
     [Authorize]
-    [Route("user/{id}/photos")]
+    [Route("user/{userId}/photos")]
     [ApiController]
     public class PhotoController : BaseController
     {
@@ -30,26 +31,35 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPhotoForUser(int id, IFormFile command)
+        public async Task<IActionResult> AddPhotoForUser(int userId, IFormFile command)
         {
             _createPhotoCommand.File = Request.Form.Files[0];
-            _createPhotoCommand.UserId = id;
+            _createPhotoCommand.UserId = userId;
             var photo = await Mediator.Send(_createPhotoCommand);
 
             return Ok(photo);
         }
 
         [HttpGet(Name = "GetPhoto")]
-        public async Task<IActionResult> GetPhoto(int id)
+        public async Task<IActionResult> GetPhoto(int userId)
         {
-            var photo = await Mediator.Send(new GetPhotoQuery() {Id = id});
+            var photo = await Mediator.Send(new GetPhotoQuery() {Id = userId });
             return Ok(photo);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> SetMainPhoto(int id, UpdatePhotoCommand request)
+        //[HttpPost("{id}")]
+        //public async Task<IActionResult> UpdatePhoto(int userId, UpdatePhotoCommand request)
+        //{
+        //    return Ok(await Mediator.Send(request));
+        //}
+
+
+        [HttpPost("{photoId}/setmain")]
+        public async Task<IActionResult> SetMainPhoto(int userId, int photoId)
         {
-            return Ok(await Mediator.Send(request));
+            return Ok( await Mediator.Send(new SetMainPhotoCommand(){PhotoId = photoId, UserId = userId}));
         }
+
+
     }
 }
