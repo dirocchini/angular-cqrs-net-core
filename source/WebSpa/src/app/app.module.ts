@@ -29,6 +29,7 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 
 import { NgxGalleryModule } from 'ngx-gallery-9';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { FileUploadModule } from 'ng2-file-upload';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -63,7 +64,8 @@ export function tokenGetter() {
             blacklistedRoutes: ['localhost:4200/login']
          }
       }),
-      NgxGalleryModule
+      NgxGalleryModule,
+      FileUploadModule
    ],
    providers: [
       AuthService,
