@@ -45,6 +45,12 @@ namespace Persistence.Repositories
             return null;
         }
 
+        public void DestroyPhoto(string publicId)
+        {
+            _cloudinary.Destroy(new DeletionParams(publicId));
+        }
+
+
         public IEnumerable<Photo> GetPhotos()
         {
             return new List<Photo>();

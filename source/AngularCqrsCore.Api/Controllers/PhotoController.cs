@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Api.Dto;
 using Api.Helpers;
 using Application.Photos.Commands.Create;
+using Application.Photos.Commands.Delete;
 using Application.Photos.Commands.SetMain;
 using Application.Photos.Commands.Update;
 using Application.Photos.Queries.Get;
@@ -60,6 +61,10 @@ namespace Api.Controllers
             return Ok( await Mediator.Send(new SetMainPhotoCommand(){PhotoId = photoId, UserId = userId}));
         }
 
-
+        [HttpDelete("{photoId}")]
+        public async Task<IActionResult> DeletePhoto(int userId, int photoId)
+        {
+            return Ok(await Mediator.Send(new DeletePhotoCommand() {PhotoId = photoId}));
+        }
     }
 }

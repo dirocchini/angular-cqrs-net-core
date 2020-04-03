@@ -9,7 +9,8 @@ namespace Application.Interfaces
         void Authenticate(string cloudName, string api, string apiSecret);
 
         (string url, string publicId)? SavePhoto(string fileName, Stream content);
-        
+        void DestroyPhoto(string publicId);
+
         IEnumerable<Photo> GetPhotos();
     }
 }
