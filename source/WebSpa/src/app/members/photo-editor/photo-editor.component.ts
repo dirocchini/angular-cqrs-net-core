@@ -24,7 +24,7 @@ export class PhotoEditorComponent implements OnInit {
    constructor(
       private authService: AuthService,
       private userService: UserService,
-      private aletify: AlertifyService
+      private alertify: AlertifyService
    ) {
       this.uploader = new FileUploader({
          url:
@@ -82,9 +82,26 @@ export class PhotoEditorComponent implements OnInit {
                );
             },
             error => {
-               this.aletify.error(error);
+               this.alertify.error(error);
             }
          );
+   }
+
+   public deletePhoto(id: number) {
+      this.alertify.confirm('Really?', () => {
+         this.userService.deletePhoto(this.authService.decodedToken.nameid, id).subscribe(
+               () => {
+                  this.photos.splice(
+                     this.photos.findIndex(p => (p.id = id)),
+                     1
+                  );
+                  this.alertify.success('Photo deleted');
+               },
+               error => {
+                  this.alertify.error(error);
+               }
+            );
+      });
    }
 
    ngOnInit() {}
