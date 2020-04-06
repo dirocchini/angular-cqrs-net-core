@@ -5,14 +5,14 @@ import {
    FormGroup,
    FormControl,
    Validators,
-   FormBuilder
+   FormBuilder,
 } from '@angular/forms';
-
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 
 @Component({
    selector: 'app-register',
    templateUrl: './register.component.html',
-   styleUrls: ['./register.component.css']
+   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
    @Output() cancelRegister = new EventEmitter();
@@ -20,11 +20,18 @@ export class RegisterComponent implements OnInit {
    model: any = {};
 
    registerForm: FormGroup;
+   bsConfig: Partial<BsDatepickerConfig>;
 
-   constructor(private authService: AuthService,private alertify: AlertifyService, private fb: FormBuilder
+   constructor(
+      private authService: AuthService,
+      private alertify: AlertifyService,
+      private fb: FormBuilder
    ) {}
 
    ngOnInit() {
+      this.bsConfig = {
+         containerClass: 'theme-red'
+      };
       this.createRegisterForm();
    }
 
@@ -38,14 +45,25 @@ export class RegisterComponent implements OnInit {
             city: ['', Validators.required],
             country: ['', Validators.required],
             login: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(8)]],
-            confirmPassword: new FormControl('', Validators.required)
-         }, { validators: this.passwordMatchValidator }
+            password: [
+               '',
+               [
+                  Validators.required,
+                  Validators.minLength(3),
+                  Validators.maxLength(8),
+               ],
+            ],
+            confirmPassword: new FormControl('', Validators.required),
+         },
+         { validators: this.passwordMatchValidator }
       );
    }
 
    passwordMatchValidator(g: FormGroup) {
-      return g.get('password').value === g.get('confirmPassword').value ? null : { mismatch: true }; }
+      return g.get('password').value === g.get('confirmPassword').value
+         ? null
+         : { mismatch: true };
+   }
 
    register() {
       console.log(this.registerForm.value);

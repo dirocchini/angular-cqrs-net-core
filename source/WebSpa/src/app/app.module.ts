@@ -1,4 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -66,7 +68,8 @@ export function tokenGetter() {
          }
       }),
       NgxGalleryModule,
-      FileUploadModule
+      FileUploadModule,
+      BsDatepickerModule.forRoot(),
    ],
    providers: [
       AuthService,
