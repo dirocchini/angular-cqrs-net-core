@@ -1,7 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+   FormGroup,
+   FormControl,
+   Validators,
+   FormBuilder
+} from '@angular/forms';
+
 
 @Component({
    selector: 'app-register',
@@ -15,32 +21,31 @@ export class RegisterComponent implements OnInit {
 
    registerForm: FormGroup;
 
-   constructor(
-      private authService: AuthService,
-      private alertify: AlertifyService
+   constructor(private authService: AuthService,private alertify: AlertifyService, private fb: FormBuilder
    ) {}
 
    ngOnInit() {
-      this.registerForm = new FormGroup(
+      this.createRegisterForm();
+   }
+
+   createRegisterForm() {
+      this.registerForm = this.fb.group(
          {
-            name: new FormControl('', Validators.required),
-            login: new FormControl('', Validators.required),
-            password: new FormControl('', [
-               Validators.required,
-               Validators.minLength(3),
-               Validators.maxLength(8)
-            ]),
-            confirmpassword: new FormControl('', Validators.required)
-         },
-         this.passwordMatchValidator
+            gender: ['male'],
+            name: ['', Validators.required],
+            knownAs: ['', Validators.required],
+            dateOfBirth: [null, Validators.required],
+            city: ['', Validators.required],
+            country: ['', Validators.required],
+            login: ['', Validators.required],
+            password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(8)]],
+            confirmPassword: new FormControl('', Validators.required)
+         }, { validators: this.passwordMatchValidator }
       );
    }
 
    passwordMatchValidator(g: FormGroup) {
-      return g.get('password').value === g.get('confirmpassword').value
-         ? null
-         : { mismatch: true };
-   }
+      return g.get('password').value === g.get('confirmPassword').value ? null : { mismatch: true }; }
 
    register() {
       console.log(this.registerForm.value);
