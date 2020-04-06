@@ -71,14 +71,10 @@ namespace Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, UpdateUserCommand command)
+        public async Task<IActionResult> UpdateUser(int id, UpdateUserCommand command) //TODO - USAR COMO EXEMPLO PARA VALIDAR TOKEN
         {
             try
             {
-
-                var token2 = Request.Headers["Authorization"];
-                var token = Request.Headers["token"];
-
                 var ret = await Mediator.Send(command);
                 if (ret)
                     return NoContent();

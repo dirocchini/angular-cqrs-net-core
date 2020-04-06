@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Application.Common.Behaviours;
+using Application.Photos.Commands.Create;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
@@ -15,6 +16,9 @@ namespace Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestAuthenticUserBehaviour<,>));
+
+            services.AddTransient(typeof(CreatePhotoCommand));
+
 
             return services;
         }

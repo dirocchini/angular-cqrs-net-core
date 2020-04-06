@@ -28,7 +28,11 @@ namespace Api.Controllers
             if (user == null)
                 return Unauthorized();
 
-            return Ok(new { token = new TokenTools(_config).MakeToken(user.Id, user.Login) });
+            return Ok(new
+            {
+                token = new TokenTools(_config).MakeToken(user.Id, user.Login),
+                user
+            });
         }
     }
 }

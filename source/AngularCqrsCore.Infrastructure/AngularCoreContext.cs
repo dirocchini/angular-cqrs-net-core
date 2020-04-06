@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
+using Application.Interfaces;
 using Domain.Common;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ namespace Persistence
 {
     public sealed class AngularCoreContext : DbContext, IApplicationDbContext
     {
+
         public AngularCoreContext(DbContextOptions<AngularCoreContext> options) : base(options)
         {
             if (Database.GetPendingMigrations().Any())

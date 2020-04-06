@@ -25,6 +25,7 @@ namespace Persistence
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IApplicationDbContext, AngularCoreContext>();
 
             return services;

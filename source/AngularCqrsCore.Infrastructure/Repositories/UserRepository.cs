@@ -15,7 +15,7 @@ namespace Persistence.Repositories
 
         }
 
-        public async Task<User> GetByLoginAsync(string login) => await Entities.Where(e => e.Login.ToLower().Trim() == login.ToLower().Trim()).SingleOrDefaultAsync();
+        public async Task<User> GetByLoginAsync(string login) => await Entities.Include(u=>u.Photos).Where(e => e.Login.ToLower().Trim() == login.ToLower().Trim()).SingleOrDefaultAsync();
         public async Task<User> GetAsync(int id) => await Entities.Include(e=> e.Photos).Where(e => e.Id == id).SingleOrDefaultAsync();
         public async Task<List<User>> GetAllAsync() => await Entities.Include(e => e.Photos).ToListAsync();
 

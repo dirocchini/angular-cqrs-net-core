@@ -32,6 +32,9 @@ namespace Persistence.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -43,6 +46,9 @@ namespace Persistence.Migrations
 
                     b.Property<int>("LastModifiedBy")
                         .HasColumnType("int");
+
+                    b.Property<string>("PublicId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
@@ -133,7 +139,7 @@ namespace Persistence.Migrations
                         {
                             Id = 1,
                             Age = 0,
-                            Created = new DateTime(2020, 3, 22, 15, 27, 58, 121, DateTimeKind.Local).AddTicks(8194),
+                            Created = new DateTime(2020, 3, 28, 10, 32, 43, 662, DateTimeKind.Local).AddTicks(7646),
                             CreatedBy = 0,
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastActive = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),

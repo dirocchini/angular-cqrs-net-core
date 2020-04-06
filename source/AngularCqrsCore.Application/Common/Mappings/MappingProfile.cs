@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Application.Photos.Commands.Update;
 using Application.Users.Commands.Update;
 using AutoMapper;
 using Domain.Entities;
@@ -15,6 +16,10 @@ namespace Application.Common.Mappings
 
             CreateMap<UpdateUserCommand, User>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<UpdatePhotoCommand, Photo>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
         }
 
         private void ApplyMappingsFromAssembly(Assembly assembly)
