@@ -1,22 +1,55 @@
-<form #registerForm="ngForm" (ngSubmit)="register()">
-  <h2 class="text-center text-primary">Sign Up</h2>
-  <hr>
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+   <h2 class="text-center text-primary">Sign Up</h2>
+   <hr>
 
-  <div class="form-group">
-    <input type="text" class="form-control" required name="name" [(ngModel)]="model.name" placeholder="Name">
-  </div>
+   <div class="form-group">
+      <input type="text" class="form-control" formControlName="name" placeholder="Name">
+   </div>
 
-  <div class="form-group">
-    <input type="text" class="form-control" required name="login" [(ngModel)]="model.login" placeholder="Login">
-  </div>
+   <div class="form-group">
+      <input type="text" class="form-control" formControlName="login" placeholder="Login">
+   </div>
 
-  <div class="form-group">
-    <input type="password" class="form-control" required name="login" [(ngModel)]="model.password" placeholder="Password">
-  </div>
+   <div class="form-group">
+      <input type="password" class="form-control" formControlName="password" placeholder="Password">
+   </div>
 
-  <div class="form-group text-center">
-    <button class="btn btn-success" type="submit">Register</button>
-    <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
-  </div>
+   <div class="form-group">
+      <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password">
+   </div>
+
+   <div class="form-group text-center">
+      <button class="btn btn-success" type="submit">Register</button>
+      <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+   </div>
 
 </form>
+
+
+<p>Form Value: {{registerForm.value | json}}</p>
+<p>Form Value: {{registerForm.status | json}}</p>
+
+
+<!--
+<form #registerForm="ngForm" (ngSubmit)="register()">
+   <h2 class="text-center text-primary">Sign Up</h2>
+   <hr>
+
+   <div class="form-group">
+     <input type="text" class="form-control" required name="name" [(ngModel)]="model.name" placeholder="Name">
+   </div>
+
+   <div class="form-group">
+     <input type="text" class="form-control" required name="login" [(ngModel)]="model.login" placeholder="Login">
+   </div>
+
+   <div class="form-group">
+     <input type="password" class="form-control" required name="login" [(ngModel)]="model.password" placeholder="Password">
+   </div>
+
+   <div class="form-group text-center">
+     <button class="btn btn-success" type="submit">Register</button>
+     <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+   </div>
+
+ </form> -->
