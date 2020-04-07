@@ -26,6 +26,7 @@ namespace Api.Controllers
             _config = config;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]GetAllQuery request)
         {

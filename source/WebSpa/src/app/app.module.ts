@@ -33,6 +33,7 @@ import { TimeagoModule } from 'ngx-timeago';
 import { NgxGalleryModule } from 'ngx-gallery-9';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { FileUploadModule } from 'ng2-file-upload';
+import { MemberListResolver } from './_resolvers/member-list-resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -80,7 +81,8 @@ export function tokenGetter() {
       UserService,
       MemberDetailResolver,
       MemberEditResolver,
-      PreventUnsavedChanges
+      PreventUnsavedChanges,
+      MemberListResolver
    ],
    bootstrap: [AppComponent]
 })
