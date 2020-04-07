@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api.Helpers
+namespace Application.Users.Queries.GetAll
 {
     public class PagedList<T> : List<T>
     {
