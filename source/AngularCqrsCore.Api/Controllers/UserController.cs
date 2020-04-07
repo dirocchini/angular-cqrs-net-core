@@ -32,6 +32,7 @@ namespace Api.Controllers
             return Ok(users);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}", Name="GetUserById")]
         public async Task<IActionResult> GetById(int id)
         {
