@@ -32,7 +32,7 @@ namespace Api.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetUserById")]
         public async Task<IActionResult> GetById(int id)
         {
             var users = await Mediator.Send(new GetQuery { Id = id });
@@ -62,7 +62,7 @@ namespace Api.Controllers
             try
             {
                 var user = await Mediator.Send(command);
-                return StatusCode(201);
+                return CreatedAtRoute("GetUserById", new { Controller = "User", id = user }, user);
             }
             catch (Exception ex)
             {
