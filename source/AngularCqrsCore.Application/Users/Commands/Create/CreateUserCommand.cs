@@ -15,7 +15,7 @@ using SharedOps;
 
 namespace Application.Users.Commands.Create
 {
-    public class CreateUserCommand : IRequest<int>, IMapFrom<User>
+    public class CreateUserCommand : IRequest<CreateUserDto>, IMapFrom<User>
     {
         #region [ PROPS ]
 
@@ -39,7 +39,7 @@ namespace Application.Users.Commands.Create
 
         #endregion
 
-        public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
+        public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserDto>
         {
             private readonly IApplicationDbContext _applicationDbContext;
             private readonly IMapper _mapper;
@@ -52,7 +52,7 @@ namespace Application.Users.Commands.Create
                 _userRepository = userRepository;
             }
 
-            public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+            public async Task<CreateUserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
                 var user = _mapper.Map<User>(request);
 
@@ -62,7 +62,9 @@ namespace Application.Users.Commands.Create
                     throw new Exception("Login já existe na base");
 
                 await _applicationDbContext.Users.AddAsync(user, cancellationToken);
-                return await _applicationDbContext.SaveChangesAsync(cancellationToken);
+                await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+                return _mapper.Map<CreateUserDto>(user);
             }
         }
 
@@ -75,6 +77,25 @@ namespace Application.Users.Commands.Create
                 ;
         }
     }
+
+    public class CreateUserDto : IMapFrom<User>
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Login { get; set; }
+        public string Gender { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public string KnownAs { get; set; }
+        public DateTime LastActive { get; set; }
+        public string Introduction { get; set; }
+        public string LookingFor { get; set; }
+        public string Interests { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public ICollection<UserPhotos> Photos { get; set; }
+    }
+
 
     public class UserPhotos : IMapFrom<Photo>
     {
