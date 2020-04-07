@@ -12,6 +12,7 @@ export interface User {
    lastActive: Date;
    city: string;
    country: string;
+   created: Date;
 
    photoUrl?: string;
    introduction?: string;

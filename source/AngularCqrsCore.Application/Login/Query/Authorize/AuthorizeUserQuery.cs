@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Application.Interfaces;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SharedOps;
 
 namespace Application.Login.Query.Authorize
@@ -17,22 +20,28 @@ namespace Application.Login.Query.Authorize
         {
             private readonly IUserRepository _userRepository;
             private readonly IMapper _mapper;
+            private readonly IApplicationDbContext _applicationDbContext;
 
-            public AuthorizeUserQueryHandler(IUserRepository userRepository, IMapper mapper)
+            public AuthorizeUserQueryHandler(IUserRepository userRepository, IMapper mapper, IApplicationDbContext applicationDbContext)
             {
                 _userRepository = userRepository;
                 _mapper = mapper;
+                _applicationDbContext = applicationDbContext;
             }
 
             public async Task<AuthorizedUser> Handle(AuthorizeUserQuery request, CancellationToken cancellationToken)
             {
-                var user = await _userRepository.GetByLoginAsync(request.Login);
+                var user = await _applicationDbContext.Users.FirstOrDefaultAsync(u => u.Login.ToLower().Trim() == request.Login.ToLower().Trim(), cancellationToken);
 
-                if (user == null) return null;
+                if (user == null || request.Password.Trim() != user.Password.Decrypt().Trim())
+                    return null;
 
-                return request.Password.Trim() != user.Password.Decrypt().Trim()
-                    ? null
-                    : _mapper.Map<AuthorizedUser>(user);
+                var userToReturn = _mapper.Map<AuthorizedUser>(user);
+
+                user.LastActive = DateTime.Now;
+                await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+                return userToReturn;
             }
         }
     }
