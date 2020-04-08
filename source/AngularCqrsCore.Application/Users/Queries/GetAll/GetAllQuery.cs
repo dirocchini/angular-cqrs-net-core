@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
@@ -17,8 +18,10 @@ namespace Application.Users.Queries.GetAll
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; }
 
+        public string Gender { get; set; }
+        public int Age { get; set; }
 
-        
+        public int CurrentUserId { get; set; }
 
         public class GetAllQueryHandler : IRequestHandler<GetAllQuery, UserVMPagination>
         {
@@ -36,7 +39,20 @@ namespace Application.Users.Queries.GetAll
                 if (request.PageSize > MaxPageSize || request.PageSize == 0)
                     request.PageSize = MaxPageSize;
 
-                var users = _applicationContext.Users.Include(u => u.Photos);
+                var loggedUser = await _applicationContext.Users.FirstOrDefaultAsync(u => u.Id == request.CurrentUserId);
+
+                if (string.IsNullOrEmpty(request.Gender))
+                {
+                    request.Gender = "male";
+
+                    if (loggedUser.Gender == "male")
+                        request.Gender = "female";
+                }
+
+                var users = _applicationContext.Users.Include(u => u.Photos).AsQueryable();
+                users = users.Where(u => u.Id != request.CurrentUserId);
+                users = users.Where(u => u.Gender.ToLower().Trim() == request.Gender.ToLower().Trim());
+
                 var pagedList = await PagedList<User>.CreateAsync(users, request.PageNumber, request.PageSize);
 
                 var usersVm = _mapper.Map<IEnumerable<UserVm>>(pagedList);

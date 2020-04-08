@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Api.Helpers;
 using Application.Users.Commands.Create;
@@ -29,7 +30,10 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]GetAllQuery request)
         {
-            var requesta = Request;
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            request.CurrentUserId = currentUserId;
+
+
             var userPagination = await Mediator.Send(request);
 
             Response.AddPagination(userPagination.CurrentPage, userPagination.ItemsPerPage, userPagination.TotalItems, userPagination.TotalPages);
