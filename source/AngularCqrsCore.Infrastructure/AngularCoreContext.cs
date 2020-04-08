@@ -28,6 +28,7 @@ namespace Persistence
         public DbSet<User> Users { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
@@ -54,8 +55,9 @@ namespace Persistence
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new PhotoConfiguration());
             modelBuilder.ApplyConfiguration(new LikeConfiguration());
+            modelBuilder.ApplyConfiguration(new MessageConfiguration());
 
-
+            
             base.OnModelCreating(modelBuilder);
         }
     }
