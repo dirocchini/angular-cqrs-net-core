@@ -36,6 +36,8 @@ export class UserService {
          .pipe(
             map((response) => {
                paginatedResult.result = response.body;
+               console.log('Pagination Settings From Header');
+               console.log(response.headers.get('Pagination'));
                if (response.headers.get('Pagination') != null) {
                   paginatedResult.pagination = JSON.parse(
                      response.headers.get('Pagination')
@@ -47,25 +49,23 @@ export class UserService {
    }
 
    getUser(id: number): Observable<User> {
-      return this.http.get<User>(this.baseUrl + 'user/' + id, httpOptions);
+      return this.http.get<User>(this.baseUrl + 'user/' + id);
    }
 
    updateUser(id: number, user: User) {
-      return this.http.put(this.baseUrl + 'user/' + id, user, httpOptions);
+      return this.http.put(this.baseUrl + 'user/' + id, user);
    }
 
    setMainPhoto(userId: number, photoId: number) {
       return this.http.post(
          this.baseUrl + 'user/' + userId + '/photos/' + photoId + '/setmain',
-         {},
-         httpOptions
+         {}
       );
    }
 
    deletePhoto(userId: number, photoId: number) {
       return this.http.delete(
-         this.baseUrl + 'user/' + userId + '/photos/' + photoId,
-         httpOptions
+         this.baseUrl + 'user/' + userId + '/photos/' + photoId
       );
    }
 }

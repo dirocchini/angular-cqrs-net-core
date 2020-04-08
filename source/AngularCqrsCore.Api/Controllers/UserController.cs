@@ -26,17 +26,16 @@ namespace Api.Controllers
             _config = config;
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]GetAllQuery request)
         {
+            var requesta = Request;
             var userPagination = await Mediator.Send(request);
 
             Response.AddPagination(userPagination.CurrentPage, userPagination.ItemsPerPage, userPagination.TotalItems, userPagination.TotalPages);
             return Ok(userPagination.Users);
         }
 
-        [AllowAnonymous]
         [HttpGet("{id}", Name="GetUserById")]
         public async Task<IActionResult> GetById(int id)
         {
