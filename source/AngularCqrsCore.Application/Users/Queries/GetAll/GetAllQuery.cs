@@ -24,8 +24,9 @@ namespace Application.Users.Queries.GetAll
         public int PageSize { get; set; }
 
         public string Gender { get; set; }
-        
-        
+        public string OrderBy { get; set; }
+
+
 
 
 
@@ -55,7 +56,7 @@ namespace Application.Users.Queries.GetAll
                         request.Gender = "female";
                 }
 
-                var users = _applicationContext.Users.Include(u => u.Photos).AsQueryable();
+                var users = _applicationContext.Users.Include(u => u.Photos).OrderByDescending(u=>u.LastActive).AsQueryable();
                 users = users.Where(u => u.Id != request.CurrentUserId);
                 users = users.Where(u => u.Gender.ToLower().Trim() == request.Gender.ToLower().Trim());
 
@@ -66,7 +67,14 @@ namespace Application.Users.Queries.GetAll
                     users = users.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
                 }
 
-
+                if (!string.IsNullOrEmpty(request.OrderBy))
+                {
+                    users = request.OrderBy switch
+                    {
+                        "created" => users.OrderByDescending(u => u.Created),
+                        _ => users.OrderByDescending(u => u.LastActive),
+                    };
+                }
 
                 var pagedList = await PagedList<User>.CreateAsync(users, request.PageNumber, request.PageSize);
 
