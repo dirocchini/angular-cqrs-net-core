@@ -1,15 +1,33 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/app/_models/user';
+import { AuthService } from 'src/app/_services/auth.service';
+import { UserService } from 'src/app/_services/user.service';
+import { AlertifyService } from 'src/app/_services/alertify.service';
 
 @Component({
    selector: 'app-members-card',
    templateUrl: './members-card.component.html',
-   styleUrls: ['./members-card.component.css']
+   styleUrls: ['./members-card.component.css'],
 })
 export class MembersCardComponent implements OnInit {
    @Input() user: User;
 
-   constructor() {}
+   constructor(
+      private authService: AuthService,
+      private userService: UserService,
+      private alertify: AlertifyService
+   ) {}
 
    ngOnInit() {}
+
+   sendLike(recipientId: number) {
+      this.userService.sendLike(this.authService.decodedToken.nameid, recipientId).subscribe(
+         (data) => {
+            this.alertify.success('You liked ' + this.user.knownAs);
+         },
+         (error) => {
+            this.alertify.error(error);
+         }
+      );
+   }
 }

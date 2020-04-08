@@ -28,6 +28,8 @@ namespace Application.Users.Queries.GetAll
         public string Country { get; set; }
         public string PhotoUrl { get; set; }
         //public ICollection<PhotoDto> Photos { get; set; }
+        //public ICollection<int> Likers { get; set; }
+        //public ICollection<int> Likees { get; set; }
 
         public void Mapping(Profile profile)
         {

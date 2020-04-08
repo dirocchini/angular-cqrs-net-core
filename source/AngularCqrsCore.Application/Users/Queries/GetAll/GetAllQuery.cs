@@ -26,6 +26,10 @@ namespace Application.Users.Queries.GetAll
         public string Gender { get; set; }
         public string OrderBy { get; set; }
 
+        public bool Likees { get; set; } = false;
+        public bool Likers { get; set; } = false;
+
+
 
 
 
@@ -56,13 +60,29 @@ namespace Application.Users.Queries.GetAll
                         request.Gender = "female";
                 }
 
-                var users = _applicationContext.Users.Include(u => u.Photos).OrderByDescending(u=>u.LastActive).AsQueryable();
+                var users = _applicationContext.Users.Include(u => u.Photos).OrderByDescending(u => u.LastActive).AsQueryable();
                 users = users.Where(u => u.Id != request.CurrentUserId);
                 users = users.Where(u => u.Gender.ToLower().Trim() == request.Gender.ToLower().Trim());
 
-                if(request.MinAge != 18 || request.MaxAge != 99)
+
+
+                if (request.Likees)
                 {
-                    var minDob = DateTime.Today.AddYears(-request.MaxAge -1);
+                    var usersILiked = _applicationContext.Likes.Where(l => l.LikerId == request.CurrentUserId).Select(i => i.LikeeId);
+                    users = users.Where(u => usersILiked.Contains(u.Id));
+                }
+
+                if (request.Likers)
+                {
+                    var usersThatLikedMe = _applicationContext.Likes.Where(l => l.LikeeId == request.CurrentUserId).Select(i => i.LikerId);
+                    users = users.Where(u => usersThatLikedMe.Contains(u.Id));
+                }
+
+
+
+                if (request.MinAge != 18 || request.MaxAge != 99)
+                {
+                    var minDob = DateTime.Today.AddYears(-request.MaxAge - 1);
                     var maxDob = DateTime.Today.AddYears(-request.MinAge);
                     users = users.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
                 }
