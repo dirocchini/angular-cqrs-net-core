@@ -33,10 +33,21 @@ import { TimeagoModule } from 'ngx-timeago';
 import { NgxGalleryModule } from 'ngx-gallery-9';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { FileUploadModule } from 'ng2-file-upload';
+import { MemberListResolver } from './_resolvers/member-list-resolver';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
 }
+
+const jwtConf = {
+   config: {
+      tokenGetter,
+      whitelistedDomains: ['localhost:5000'],
+      blacklistedRoutes: ['localhost:5000/login'],
+   },
+};
 
 @NgModule({
    declarations: [
@@ -50,7 +61,7 @@ export function tokenGetter() {
       MembersCardComponent,
       MemberDetailComponent,
       MemberEditComponent,
-      PhotoEditorComponent
+      PhotoEditorComponent,
    ],
    imports: [
       BrowserModule,
@@ -61,17 +72,13 @@ export function tokenGetter() {
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
-      JwtModule.forRoot({
-         config: {
-            tokenGetter: tokenGetter,
-            whitelistedDomains: ['localhost:4200'],
-            blacklistedRoutes: ['localhost:4200/login']
-         }
-      }),
       NgxGalleryModule,
       FileUploadModule,
       BsDatepickerModule.forRoot(),
-      TimeagoModule.forRoot()
+      TimeagoModule.forRoot(),
+      JwtModule.forRoot(jwtConf),
+      PaginationModule.forRoot(),
+      ButtonsModule.forRoot(),
    ],
    providers: [
       AuthService,
@@ -80,8 +87,9 @@ export function tokenGetter() {
       UserService,
       MemberDetailResolver,
       MemberEditResolver,
-      PreventUnsavedChanges
+      PreventUnsavedChanges,
+      MemberListResolver,
    ],
-   bootstrap: [AppComponent]
+   bootstrap: [AppComponent],
 })
 export class AppModule {}

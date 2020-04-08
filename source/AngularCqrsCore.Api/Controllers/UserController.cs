@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Reflection;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Api.Helpers;
 using Application.Users.Commands.Create;
 using Application.Users.Commands.Delete;
 using Application.Users.Commands.Update;
@@ -26,13 +28,18 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery]GetAllQuery request)
         {
-            var users = await Mediator.Send(new GetAllQuery());
-            return Ok(users);
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            request.CurrentUserId = currentUserId;
+
+
+            var userPagination = await Mediator.Send(request);
+
+            Response.AddPagination(userPagination.CurrentPage, userPagination.ItemsPerPage, userPagination.TotalItems, userPagination.TotalPages);
+            return Ok(userPagination.Users);
         }
 
-        [AllowAnonymous]
         [HttpGet("{id}", Name="GetUserById")]
         public async Task<IActionResult> GetById(int id)
         {
