@@ -103,10 +103,12 @@ namespace Api.Controllers
         [HttpPost("{id}/like/{recipientId}")]
         public async Task<IActionResult> LikeUser(int id, int recipientId)
         {
-            if (await Mediator.Send(new CreateUserLikeCommand(id, recipientId)))
+            string ret = await Mediator.Send(new CreateUserLikeCommand(id, recipientId));
+
+            if(string.IsNullOrEmpty(ret))
                 return Ok();
 
-            return BadRequest("Like not saved");
+            return BadRequest(ret);
         }
     }
 }

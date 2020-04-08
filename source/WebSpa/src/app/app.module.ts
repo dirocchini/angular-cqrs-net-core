@@ -33,9 +33,10 @@ import { TimeagoModule } from 'ngx-timeago';
 import { NgxGalleryModule } from 'ngx-gallery-9';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { FileUploadModule } from 'ng2-file-upload';
-import { MemberListResolver } from './_resolvers/member-list-resolver';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { ListsResolver } from './_resolvers/lists.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -89,6 +90,7 @@ const jwtConf = {
       MemberEditResolver,
       PreventUnsavedChanges,
       MemberListResolver,
+      ListsResolver
    ],
    bootstrap: [AppComponent],
 })

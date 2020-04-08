@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Commands.Likes.AddLike
 {
-    public class CreateUserLikeCommand : IRequest<bool>
+    public class CreateUserLikeCommand : IRequest<string>
     {
         public CreateUserLikeCommand(int id, int recipientId)
         {
@@ -26,7 +26,7 @@ namespace Application.Users.Commands.Likes.AddLike
 
 
 
-        public class CreateUserLikeCommandHandler : IRequestHandler<CreateUserLikeCommand, bool>
+        public class CreateUserLikeCommandHandler : IRequestHandler<CreateUserLikeCommand, string>
         {
             public IApplicationDbContext _applicationDbContext { get; }
 
@@ -36,15 +36,15 @@ namespace Application.Users.Commands.Likes.AddLike
             }
 
 
-            public async Task<bool> Handle(CreateUserLikeCommand request, CancellationToken cancellationToken)
+            public async Task<string> Handle(CreateUserLikeCommand request, CancellationToken cancellationToken)
             {
                 var alreadyLiked = _applicationDbContext.Likes.FirstOrDefault(l => l.LikeeId == request.RecipientId && l.LikerId == request.Id);
 
                 if (alreadyLiked != null)
-                    return false;
+                    return "Already Liked This Person";
 
                 if(await _applicationDbContext.Users.FirstOrDefaultAsync(u=>u.Id == request.RecipientId)==null)
-                    return false;
+                    return "This Person Doesn't Exist";
 
                 var like = new Like()
                 {
@@ -56,7 +56,7 @@ namespace Application.Users.Commands.Likes.AddLike
                 await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
 
-                return true;
+                return string.Empty;
             }
         }
     }
