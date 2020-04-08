@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Api.Helpers;
 using Application.Users.Commands.Create;
 using Application.Users.Commands.Delete;
+using Application.Users.Commands.Likes.AddLike;
 using Application.Users.Commands.Update;
 using Application.Users.Queries.Get;
 using Application.Users.Queries.GetAll;
@@ -97,6 +98,15 @@ namespace Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPost("{id}/like/{recipientId}")]
+        public async Task<IActionResult> LikeUser(int id, int recipientId)
+        {
+            if (await Mediator.Send(new CreateUserLikeCommand(id, recipientId)))
+                return Ok();
+
+            return BadRequest("Like not saved");
         }
     }
 }
