@@ -3,11 +3,13 @@ using AutoMapper;
 using Domain.Entities;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
-namespace Application.Messages.Queries.GetMessage
+namespace Application.Messages.Queries.GetMessagesForUser
 {
-    public class MessageDto : IMapFrom<Message>
+    public class GetMessagesForUserDto : IMapFrom<Message>
     {
         public int Id { get; set; }
 
@@ -35,7 +37,7 @@ namespace Application.Messages.Queries.GetMessage
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Message, MessageDto>()
+            profile.CreateMap<Message, GetMessagesForUserDto>()
                 .ForMember(d => d.SenderKnownAs, opt => opt.MapFrom(s => (s.Sender == null ? "not found" : s.Sender.KnownAs)))
                 .ForMember(d => d.SenderPhotoUrl, opt => opt.MapFrom(s => (s.Sender == null ? "" : GetMainPhoto(s.Sender))))
                 .ForMember(d => d.RecipientKnownAs, opt => opt.MapFrom(s => (s.Recipient == null ? "not found" : s.Recipient.KnownAs)))

@@ -1,7 +1,5 @@
 ﻿using Domain.Common;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Domain.Entities
 {
@@ -10,8 +8,8 @@ namespace Domain.Entities
         public int SenderId { get; set; }
         public User Sender { get; set; }
 
-        public int RecepientId { get; set; }
-        public User Recepient { get; set; }
+        public int RecipientId { get; set; }
+        public User Recipient { get; set; }
 
         public string Content { get; set; }
 

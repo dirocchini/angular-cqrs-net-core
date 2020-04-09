@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Application.Messages.Queries.GetMessage;
 using Application.Messages.Commands.CreateMessage;
+using Application.Messages.Queries.GetMessagesForUser;
+using Api.Helpers;
 
 namespace Api.Controllers
 {
     [Authorize]
-    [Route("users/{userId}/[controller]")]
+    [Route("user/{userId}/[controller]")]
     [ApiController]
     public class MessageController : BaseController
     {
@@ -31,6 +28,20 @@ namespace Api.Controllers
 
             return Ok(message);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetMessages(int userId, [FromQuery]GetMessagesForUserQuery request)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            request.CurrentUserId = userId;
+
+            var messagesPagination = await Mediator.Send(request);
+
+            Response.AddPagination(messagesPagination.CurrentPage, messagesPagination.ItemsPerPage, messagesPagination.TotalItems, messagesPagination.TotalPages);
+            return Ok(messagesPagination.Messages);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateMessage(int userId, CreateMessageCommand request)
@@ -40,14 +51,12 @@ namespace Api.Controllers
 
             request.SenderId = userId;
 
-            string ret =await Mediator.Send(request);
+            var message = await Mediator.Send(request);
 
-            if (string.IsNullOrEmpty(ret))
-                return Ok();
+            if (message != null)
+                return CreatedAtRoute("GetMessage", new { userId = userId, messageId = message.Id }, message);
 
-            return BadRequest(ret);
+            return BadRequest();
         }
     }
-
-   
 }

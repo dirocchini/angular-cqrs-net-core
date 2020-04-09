@@ -1,9 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Persistence.Configurations
 {
@@ -20,7 +17,7 @@ namespace Persistence.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasOne(u => u.Recepient)
+                .HasOne(u => u.Recipient)
                 .WithMany(m => m.MessagesReceived)
                 .OnDelete(DeleteBehavior.Restrict);
         }

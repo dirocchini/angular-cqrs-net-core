@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 using System;
 using System.Linq;
 
-namespace Application.Messages.Queries.GetMessage
+namespace Application.Messages.Commands.CreateMessage
 {
-    public class MessageDto : IMapFrom<Message>
+    public class CreateMessageDto : IMapFrom<Message>
     {
         public int Id { get; set; }
 
@@ -35,7 +35,7 @@ namespace Application.Messages.Queries.GetMessage
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Message, MessageDto>()
+            profile.CreateMap<Message, CreateMessageDto>()
                 .ForMember(d => d.SenderKnownAs, opt => opt.MapFrom(s => (s.Sender == null ? "not found" : s.Sender.KnownAs)))
                 .ForMember(d => d.SenderPhotoUrl, opt => opt.MapFrom(s => (s.Sender == null ? "" : GetMainPhoto(s.Sender))))
                 .ForMember(d => d.RecipientKnownAs, opt => opt.MapFrom(s => (s.Recipient == null ? "not found" : s.Recipient.KnownAs)))
