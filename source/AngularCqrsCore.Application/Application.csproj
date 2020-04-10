@@ -20,8 +20,4 @@
     <ProjectReference Include="..\SharedOps\SharedOps.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Messages\Queries\GetMessageThread\" />
-  </ItemGroup>
-
 </Project>

@@ -6,6 +6,7 @@ using Application.Messages.Queries.GetMessage;
 using Application.Messages.Commands.CreateMessage;
 using Application.Messages.Queries.GetMessagesForUser;
 using Api.Helpers;
+using Application.Messages.Queries.GetMessageThread;
 
 namespace Api.Controllers
 {
@@ -42,6 +43,16 @@ namespace Api.Controllers
             return Ok(messagesPagination.Messages);
         }
 
+        [HttpGet("thread/{recipientId}")]
+        public async Task<IActionResult> GetMessagesThread(int userId, int recipientId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var messages = await Mediator.Send(new GetMessageThreadQuery() { SenderId = userId, RecipientId = recipientId });
+
+            return Ok(messages);
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateMessage(int userId, CreateMessageCommand request)
