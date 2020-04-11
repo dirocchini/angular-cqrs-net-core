@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Common;
 using Application.Common.Interfaces;

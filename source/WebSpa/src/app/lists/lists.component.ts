@@ -26,11 +26,7 @@ export class ListsComponent implements OnInit {
    ngOnInit() {
       this.route.data.subscribe((data) => {
          this.users = data.users.result;
-         // this.pagination = data.users.pagination;
-
-         this.pagination = JSON.parse(
-            '{"currentPage":2,"itemsPerPage":3,"totalItems":7,"totalPages":3}'
-         );
+         this.pagination = data.users.pagination;
       });
 
       this.likesParam = 'Likers';
@@ -47,20 +43,7 @@ export class ListsComponent implements OnInit {
          )
          .subscribe((paginatedUsers: PaginatedResult<User[]>) => {
             this.users = paginatedUsers.result;
-
-            if (paginatedUsers.pagination === undefined) {
-               this.pagination = JSON.parse(
-                  '{"currentPage":' +
-                     this.pagination.currentPage +
-                     ',"itemsPerPage":' +
-                     this.pagination.itemsPerPage +
-                     ',"totalItems":7,"totalPages":3}'
-               );
-            } else {
-               this.pagination = paginatedUsers.pagination;
-            }
-            console.log('paginatedUsers');
-            console.log(paginatedUsers);
+            this.pagination = paginatedUsers.pagination;
          });
    }
 

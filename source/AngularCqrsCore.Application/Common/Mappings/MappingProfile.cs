@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Application.Messages.Commands.CreateMessage;
 using Application.Photos.Commands.Update;
 using Application.Users.Commands.Update;
 using AutoMapper;
@@ -18,6 +19,9 @@ namespace Application.Common.Mappings
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             CreateMap<UpdatePhotoCommand, Photo>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<CreateMessageCommand, Message>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
         }

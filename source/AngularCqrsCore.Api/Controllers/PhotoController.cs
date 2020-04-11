@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Api.Dto;
-using Api.Helpers;
+﻿using System.Threading.Tasks;
 using Application.Photos.Commands.Create;
 using Application.Photos.Commands.Delete;
 using Application.Photos.Commands.SetMain;
-using Application.Photos.Commands.Update;
 using Application.Photos.Queries.Get;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

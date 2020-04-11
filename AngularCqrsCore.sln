@@ -19,7 +19,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "source\AngularCqrsCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "source\AngularCqrsCore.Domain\Domain.csproj", "{01B30E49-C914-4D48-A691-02D280FFC09C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedOps", "source\SharedOps\SharedOps.csproj", "{342DADC6-2C6A-4796-A003-8B357D653824}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedOps", "source\SharedOps\SharedOps.csproj", "{342DADC6-2C6A-4796-A003-8B357D653824}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{97DA460C-EB15-47BA-9F96-DD4158E9DFBE}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

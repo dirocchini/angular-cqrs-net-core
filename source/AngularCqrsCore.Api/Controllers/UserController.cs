@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Api.Helpers;
@@ -12,7 +11,6 @@ using Application.Users.Queries.GetAll;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using SharedOps;
 
 namespace Api.Controllers
 {
