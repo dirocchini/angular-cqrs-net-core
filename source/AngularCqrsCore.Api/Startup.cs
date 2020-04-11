@@ -29,8 +29,7 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddControllersWithViews()
+            services.AddControllers()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
@@ -82,9 +81,13 @@ namespace Api
                 });
             }
 
-            app.UseRouting();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -92,6 +95,7 @@ namespace Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }
