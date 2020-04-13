@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Common;
+using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Entities
 {
-    public partial class User : AuditableEntity
+    public partial class User : IdentityUser<int>
     {
         public string Name { get; set; }
-        public string Email { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
 
@@ -40,5 +39,12 @@ namespace Domain.Entities
         public ICollection<Like> Likees { get; set; }
         public ICollection<Message> MessagesSent { get; set; }
         public ICollection<Message> MessagesReceived { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
+
+
+        public int CreatedBy { get; set; }
+        public DateTime Created { get; set; }
+        public int LastModifiedBy { get; set; }
+        public DateTime? LastModified { get; set; }
     }
 }

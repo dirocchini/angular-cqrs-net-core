@@ -59,7 +59,7 @@ namespace Application.Users.Commands.Create
                 if (userExists is object)
                     throw new Exception("Login já existe na base");
 
-                await _applicationDbContext.Users.AddAsync(user, cancellationToken);
+                await _applicationDbContext.User.AddAsync(user, cancellationToken);
                 await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
                 return _mapper.Map<CreateUserDto>(user);

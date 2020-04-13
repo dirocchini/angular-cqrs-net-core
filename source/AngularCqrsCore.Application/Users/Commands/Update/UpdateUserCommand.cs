@@ -39,7 +39,7 @@ namespace Application.Users.Commands.Update
             {
 
 
-                var user = await _applicationContext.Users.FirstOrDefaultAsync(u => u.Id == request.Id);
+                var user = await _applicationContext.User.FirstOrDefaultAsync(u => u.Id == request.Id);
 
                 if (user == null) return false;
 

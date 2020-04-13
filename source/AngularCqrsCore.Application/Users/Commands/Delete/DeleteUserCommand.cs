@@ -31,7 +31,7 @@ namespace Application.Users.Commands.Delete
 
                 if ( user == null) return false;
 
-                _applicationDbContext.Users.Remove(user);
+                _applicationDbContext.User.Remove(user);
                 await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
                 return true;

@@ -37,7 +37,7 @@ namespace Application.Messages.Commands.CreateMessage
 
             public async Task<CreateMessageDto> Handle(CreateMessageCommand request, CancellationToken cancellationToken)
             {
-                var recipient = await _applicationDbContext.Users.FirstOrDefaultAsync(u => u.Id == request.RecipientId, cancellationToken);
+                var recipient = await _applicationDbContext.User.FirstOrDefaultAsync(u => u.Id == request.RecipientId, cancellationToken);
 
                 if (recipient == null)
                     return null;

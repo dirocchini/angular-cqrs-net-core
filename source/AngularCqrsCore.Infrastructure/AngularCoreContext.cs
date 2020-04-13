@@ -4,13 +4,17 @@ using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Domain.Common;
 using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Persistence.Configurations;
 
 namespace Persistence
 {
-    public sealed class AngularCoreContext : DbContext, IApplicationDbContext
+    public sealed class AngularCoreContext : 
+        IdentityDbContext<User, Role, int, IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>,
+        IApplicationDbContext
     {
 
         public AngularCoreContext(DbContextOptions<AngularCoreContext> options) : base(options)
@@ -24,10 +28,12 @@ namespace Persistence
         }
 
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> User { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Message> Messages { get; set; }
+
+
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
@@ -51,6 +57,9 @@ namespace Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new PhotoConfiguration());
             modelBuilder.ApplyConfiguration(new LikeConfiguration());

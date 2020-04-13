@@ -46,7 +46,7 @@ namespace Application.Photos.Commands.Create
 
             public async Task<PhotoDto> Handle(CreatePhotoCommand request, CancellationToken cancellationToken)
             {
-                var user = await _applicationDbContext.Users.Include(u => u.Photos).FirstOrDefaultAsync(u => u.Id == request.UserId, cancellationToken);
+                var user = await _applicationDbContext.User.Include(u => u.Photos).FirstOrDefaultAsync(u => u.Id == request.UserId, cancellationToken);
 
                 _photoRepository.Authenticate(_options.Value.CloudName, _options.Value.ApiKey, _options.Value.ApiSecrets);
                 var url = _photoRepository.SavePhoto(request.File.FileName, request.File.OpenReadStream());

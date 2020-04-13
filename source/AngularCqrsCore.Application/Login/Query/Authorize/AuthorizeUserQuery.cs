@@ -30,7 +30,7 @@ namespace Application.Login.Query.Authorize
 
             public async Task<AuthorizedUser> Handle(AuthorizeUserQuery request, CancellationToken cancellationToken)
             {
-                var user = await _applicationDbContext.Users.FirstOrDefaultAsync(u => u.Login.ToLower().Trim() == request.Login.ToLower().Trim(), cancellationToken);
+                var user = await _applicationDbContext.User.FirstOrDefaultAsync(u => u.Login.ToLower().Trim() == request.Login.ToLower().Trim(), cancellationToken);
 
                 if (user == null || request.Password.Trim() != user.Password.Decrypt().Trim())
                     return null;
