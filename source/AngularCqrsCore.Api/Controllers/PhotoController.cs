@@ -11,7 +11,7 @@ using SharedOps;
 
 namespace Api.Controllers
 {
-    [Authorize]
+    
     [Route("user/{userId}/photos")]
     [ApiController]
     public class PhotoController : BaseController

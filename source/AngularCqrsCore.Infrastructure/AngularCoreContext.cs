@@ -59,13 +59,14 @@ namespace Persistence
         {
             base.OnModelCreating(modelBuilder);
 
-
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new PhotoConfiguration());
             modelBuilder.ApplyConfiguration(new LikeConfiguration());
             modelBuilder.ApplyConfiguration(new MessageConfiguration());
-
             
+            modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+
+
             base.OnModelCreating(modelBuilder);
         }
     }

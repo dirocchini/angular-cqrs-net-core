@@ -14,7 +14,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Api.Controllers
 {
-    [Authorize]
+    
     [Route("[controller]")]
     [ApiController]
     public class UserController : BaseController

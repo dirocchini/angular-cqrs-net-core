@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Application.Login.Query.Authorize;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SharedOps;
@@ -8,6 +9,7 @@ namespace Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public partial class LoginController : BaseController
     {
         private readonly IConfiguration _config;
