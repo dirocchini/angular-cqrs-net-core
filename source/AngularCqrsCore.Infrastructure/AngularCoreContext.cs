@@ -22,9 +22,6 @@ namespace Persistence
             if (Database.GetPendingMigrations().Any())
                 Database.Migrate();
 
-
-            //Horrible approach ... BUT it's for study purpose
-            Seed.SeedUsers(this);
         }
 
 

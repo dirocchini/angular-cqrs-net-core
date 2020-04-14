@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AngularCoreContext))]
-    partial class AngularCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20200413220020_Identity-Initial")]
+    partial class IdentityInitial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,8 +286,8 @@ namespace Persistence.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c7ec51ee-bd6e-4b47-90b3-8ecf0f554ced",
-                            Created = new DateTime(2020, 4, 14, 19, 42, 19, 690, DateTimeKind.Local).AddTicks(162),
+                            ConcurrencyStamp = "0978591a-1b29-401a-8833-dfecee324b3c",
+                            Created = new DateTime(2020, 4, 13, 19, 0, 10, 95, DateTimeKind.Local).AddTicks(929),
                             CreatedBy = 0,
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
@@ -294,10 +296,9 @@ namespace Persistence.Migrations
                             LockoutEnabled = false,
                             Login = "admin",
                             Name = "Administrator",
-                            Password = "password",
+                            Password = "Yaaca3BSPqo=",
                             PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
+                            TwoFactorEnabled = false
                         });
                 });
 

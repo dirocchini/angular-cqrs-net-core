@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200321205018_Added-Photos.cs" />
-    <Compile Remove="Migrations\20200321205018_Added-Photos.Designer.cs" />
-    <Compile Remove="Migrations\20200321205223_UserPhotos-Table-Renamed.cs" />
-    <Compile Remove="Migrations\20200321205223_UserPhotos-Table-Renamed.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 

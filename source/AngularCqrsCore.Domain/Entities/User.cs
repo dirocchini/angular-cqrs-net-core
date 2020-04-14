@@ -6,8 +6,11 @@ namespace Domain.Entities
 {
     public partial class User : IdentityUser<int>
     {
-        public string Name { get; set; }
-        public string Login { get; set; }
+        private string name { get; set; }
+        public string Name { get { return !string.IsNullOrEmpty(name) ? name : UserName; } set { name = value; } }
+
+        private string login { get; set; }
+        public string Login { get { return !string.IsNullOrEmpty(login) ? login : UserName; } set { login = value; } }
         public string Password { get; set; }
 
 

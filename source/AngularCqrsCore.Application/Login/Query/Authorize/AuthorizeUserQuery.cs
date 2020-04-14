@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Application.Interfaces;
 using AutoMapper;
+using Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SharedOps;
+
 
 namespace Application.Login.Query.Authorize
 {
@@ -20,27 +24,28 @@ namespace Application.Login.Query.Authorize
             private readonly IUserRepository _userRepository;
             private readonly IMapper _mapper;
             private readonly IApplicationDbContext _applicationDbContext;
+            private readonly UserManager<User> _userManager;
+            private readonly SignInManager<User> _signInManager;
 
-            public AuthorizeUserQueryHandler(IUserRepository userRepository, IMapper mapper, IApplicationDbContext applicationDbContext)
+            public AuthorizeUserQueryHandler(IUserRepository userRepository, IMapper mapper, IApplicationDbContext applicationDbContext, UserManager<User> userManager, SignInManager<User> signInManager)
             {
                 _userRepository = userRepository;
                 _mapper = mapper;
                 _applicationDbContext = applicationDbContext;
+                _userManager = userManager;
+                _signInManager = signInManager;
             }
 
             public async Task<AuthorizedUser> Handle(AuthorizeUserQuery request, CancellationToken cancellationToken)
             {
-                var user = await _applicationDbContext.User.FirstOrDefaultAsync(u => u.Login.ToLower().Trim() == request.Login.ToLower().Trim(), cancellationToken);
+                var user = await _userManager.FindByNameAsync(request.Login);
+                user.Photos = _applicationDbContext.Photos.Where(p => p.UserId == user.Id).ToList();
+                var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
-                if (user == null || request.Password.Trim() != user.Password.Decrypt().Trim())
-                    return null;
+                if (result.Succeeded)
+                    return _mapper.Map<AuthorizedUser>(user);
 
-                var userToReturn = _mapper.Map<AuthorizedUser>(user);
-
-                user.LastActive = DateTime.Now;
-                await _applicationDbContext.SaveChangesAsync(cancellationToken);
-
-                return userToReturn;
+                return null;
             }
         }
     }

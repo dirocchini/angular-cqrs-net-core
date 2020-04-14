@@ -15,7 +15,8 @@ namespace Persistence.Configurations
                 Id = 1,
                 Name = "Administrator",
                 Login = "admin",
-                Password = "123".Crypt(),
+                UserName = "admin",
+                Password = "password",
                 Created = DateTime.Now
             };
 
