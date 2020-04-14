@@ -39,6 +39,7 @@ namespace Api
                 opt.Password.RequiredLength = 4;
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequireUppercase = false;
+                opt.Password.RequireLowercase = false;
             });
 
             builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);

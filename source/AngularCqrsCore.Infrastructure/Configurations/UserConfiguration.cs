@@ -10,16 +10,6 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            var admin = new User()
-            {
-                Id = 1,
-                Name = "Administrator",
-                Login = "admin",
-                UserName = "admin",
-                Password = "password",
-                Created = DateTime.Now
-            };
-
             builder
                 .ToTable("Users");
 
@@ -49,9 +39,6 @@ namespace Persistence.Configurations
                 .Property(e => e.Password)
                 .HasColumnType("varchar (500)")
                 .IsRequired();
-
-            builder
-                .HasData(admin);
         }
     }
 }

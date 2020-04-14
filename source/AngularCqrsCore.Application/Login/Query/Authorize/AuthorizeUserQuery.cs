@@ -21,15 +21,13 @@ namespace Application.Login.Query.Authorize
 
         public class AuthorizeUserQueryHandler : IRequestHandler<AuthorizeUserQuery, AuthorizedUser>
         {
-            private readonly IUserRepository _userRepository;
             private readonly IMapper _mapper;
             private readonly IApplicationDbContext _applicationDbContext;
             private readonly UserManager<User> _userManager;
             private readonly SignInManager<User> _signInManager;
 
-            public AuthorizeUserQueryHandler(IUserRepository userRepository, IMapper mapper, IApplicationDbContext applicationDbContext, UserManager<User> userManager, SignInManager<User> signInManager)
+            public AuthorizeUserQueryHandler(IMapper mapper, IApplicationDbContext applicationDbContext, UserManager<User> userManager, SignInManager<User> signInManager)
             {
-                _userRepository = userRepository;
                 _mapper = mapper;
                 _applicationDbContext = applicationDbContext;
                 _userManager = userManager;
@@ -43,8 +41,11 @@ namespace Application.Login.Query.Authorize
                 var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
                 if (result.Succeeded)
+                {
+                    user.LastActive = DateTime.Now;
+                    await _applicationDbContext.SaveChangesAsync(cancellationToken);
                     return _mapper.Map<AuthorizedUser>(user);
-
+                }
                 return null;
             }
         }

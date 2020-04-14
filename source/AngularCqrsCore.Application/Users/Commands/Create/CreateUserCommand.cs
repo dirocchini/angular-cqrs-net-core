@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
@@ -9,6 +10,7 @@ using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using SharedOps;
 
 namespace Application.Users.Commands.Create
@@ -39,38 +41,36 @@ namespace Application.Users.Commands.Create
 
         public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserDto>
         {
-            private readonly IApplicationDbContext _applicationDbContext;
             private readonly IMapper _mapper;
-            private readonly IUserRepository _userRepository;
+            private readonly UserManager<User> _userManager;
 
-            public CreateUserCommandHandler(IApplicationDbContext applicationDbContext, IMapper mapper, IUserRepository userRepository)
+            public CreateUserCommandHandler(IMapper mapper, UserManager<User> userManager)
             {
-                _applicationDbContext = applicationDbContext;
                 _mapper = mapper;
-                _userRepository = userRepository;
+                _userManager = userManager;
             }
 
             public async Task<CreateUserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
                 var user = _mapper.Map<User>(request);
+                user.Created = DateTime.Now;
+                user.LastActive = DateTime.Now;
 
-                var userExists = await _userRepository.GetByLoginAsync(user.Login);
+                var result = await _userManager.CreateAsync(user, user.Password);
 
-                if (userExists is object)
-                    throw new Exception("Login já existe na base");
+                if (result.Succeeded)
+                    return _mapper.Map<CreateUserDto>(user);
 
-                await _applicationDbContext.User.AddAsync(user, cancellationToken);
-                await _applicationDbContext.SaveChangesAsync(cancellationToken);
-
-                return _mapper.Map<CreateUserDto>(user);
+                throw new Exception(result.Errors.ToList()[0].Description);
             }
         }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateUserCommand, User>()
-                .ForMember(d => d.Password, opt => opt.MapFrom(s => s.Password.Crypt()))
+                .ForMember(d => d.Password, opt => opt.MapFrom(s => s.Password))
                 .ForMember(d => d.Login, opt => opt.MapFrom(s => s.Login.ToLower()))
+                .ForMember(d => d.UserName, opt => opt.MapFrom(s => s.Login))
                 .ForMember(d => d.Photos, opt => opt.MapFrom(s => s.Photos))
                 ;
         }
