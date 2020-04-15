@@ -23,10 +23,10 @@ namespace Api
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<AngularCoreContext>();
                 var userManager = services.GetRequiredService<UserManager<User>>();
-
+                var roleManager = services.GetRequiredService<RoleManager<Role>>();
 
                 context.Database.Migrate();
-                Seed.SeedUsers(userManager);
+                Seed.SeedUsers(userManager, roleManager);
             }
 
             host.Run();
