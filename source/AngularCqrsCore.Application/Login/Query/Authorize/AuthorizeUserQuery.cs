@@ -37,14 +37,18 @@ namespace Application.Login.Query.Authorize
             public async Task<AuthorizedUser> Handle(AuthorizeUserQuery request, CancellationToken cancellationToken)
             {
                 var user = await _userManager.FindByNameAsync(request.Login);
-                user.Photos = _applicationDbContext.Photos.Where(p => p.UserId == user.Id).ToList();
+                user.Photos = _applicationDbContext.Photos.Where(p => p.UserId == user.Id)?.ToList()?? null;
                 var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
                 if (result.Succeeded)
                 {
                     user.LastActive = DateTime.Now;
                     await _applicationDbContext.SaveChangesAsync(cancellationToken);
-                    return _mapper.Map<AuthorizedUser>(user);
+
+                    var userToReturn = _mapper.Map<AuthorizedUser>(user);
+                    userToReturn.Roles  = await _userManager.GetRolesAsync(user);
+
+                    return userToReturn;
                 }
                 return null;
             }

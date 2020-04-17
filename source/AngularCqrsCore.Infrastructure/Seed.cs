@@ -46,6 +46,8 @@ namespace Persistence
                 userManager.AddToRolesAsync(admin, new[] { "Admin", "Moderator" }).Wait();
             }
 
+            
+
             //users.ForEach(u =>
             //{
             //    userManager.CreateAsync(userManager )

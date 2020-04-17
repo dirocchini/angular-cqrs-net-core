@@ -30,6 +30,7 @@ namespace Application.Login.Query.Authorize
         public DateTime Created { get; set; }
 
         public ICollection<UserPhotos> Photos { get; set; }
+        public ICollection<string> Roles { get; set; }
 
 
         #endregion
