@@ -11,20 +11,22 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
-            builder
-                .HasKey(ur => new { ur.UserId, ur.RoleId });
+            //builder
+            //    .HasKey(ur => new { ur.UserId, ur.RoleId });
 
             builder
-                .HasOne(ur => ur.Role)
+                .HasOne(ur => ur.User)
                 .WithMany(ur => ur.UserRoles)
-                .HasForeignKey(ur => ur.RoleId)
+                .HasForeignKey(ur => ur.UserId)
                 .IsRequired();
 
             builder
-             .HasOne(ur => ur.User)
+             .HasOne(ur => ur.Role)
              .WithMany(ur => ur.UserRoles)
-             .HasForeignKey(ur => ur.UserId)
+             .HasForeignKey(ur => ur.RoleId)
              .IsRequired();
+
+
         }
     }
 }

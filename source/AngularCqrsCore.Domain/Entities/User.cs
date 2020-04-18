@@ -43,7 +43,7 @@ namespace Domain.Entities
         public ICollection<Like> Likees { get; set; }
         public ICollection<Message> MessagesSent { get; set; }
         public ICollection<Message> MessagesReceived { get; set; }
-        public ICollection<UserRole> UserRoles { get; set; }
+        public ICollection<UserRole> UserRoles { get; } = new List<UserRole>();
 
 
         public int CreatedBy { get; set; }

@@ -11,6 +11,8 @@ namespace Application.Common.Interfaces
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

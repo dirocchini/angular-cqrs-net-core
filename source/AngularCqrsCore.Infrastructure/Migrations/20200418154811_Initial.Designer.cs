@@ -10,8 +10,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AngularCoreContext))]
-    [Migration("20200413220020_Identity-Initial")]
-    partial class IdentityInitial
+    [Migration("20200418154811_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -280,26 +280,6 @@ namespace Persistence.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "0978591a-1b29-401a-8833-dfecee324b3c",
-                            Created = new DateTime(2020, 4, 13, 19, 0, 10, 95, DateTimeKind.Local).AddTicks(929),
-                            CreatedBy = 0,
-                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EmailConfirmed = false,
-                            LastActive = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastModifiedBy = 0,
-                            LockoutEnabled = false,
-                            Login = "admin",
-                            Name = "Administrator",
-                            Password = "Yaaca3BSPqo=",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.UserRole", b =>

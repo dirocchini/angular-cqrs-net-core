@@ -39,6 +39,13 @@ namespace Persistence.Configurations
                 .Property(e => e.Password)
                 .HasColumnType("varchar (500)")
                 .IsRequired();
+
+            builder
+                .HasMany(e => e.UserRoles)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
