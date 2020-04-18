@@ -4,11 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
 using Domain.Entities;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Persistence;
+using Api.Controllers.Dto;
 
 namespace Api.Controllers
 {
@@ -24,10 +30,12 @@ namespace Api.Controllers
     public class AdminController : BaseController
     {
         private readonly IApplicationDbContext _applicationDbContext;
+        private readonly UserManager<User> _userManager;
 
-        public AdminController(IApplicationDbContext applicationDbContext)
+        public AdminController(IApplicationDbContext applicationDbContext, UserManager<User> userManager)
         {
             _applicationDbContext = applicationDbContext;
+            _userManager = userManager;
         }
 
 
@@ -62,11 +70,39 @@ namespace Api.Controllers
             return Ok(userList);
         }
 
+
+
         [Authorize(Policy = "ModeratePhotoRole")]
         [HttpGet("photosForModeration")]
         public IActionResult GetPhotosForModeration()
         {
             return Ok("Admins or Moderators can see this");
         }
+
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpPost("editRoles/{userName}")]
+        public async Task<IActionResult> EditRoles (string userName, RoleEditDto roleEditDto)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var selectedRoles = roleEditDto.RoleNames;
+
+            selectedRoles = selectedRoles ?? Array.Empty<string>();
+
+            var result = await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles));
+
+            if (!result.Succeeded)
+                return BadRequest("Failed to add roles");
+
+            result = await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles));
+
+            if (!result.Succeeded)
+                return BadRequest("Failed to remove roles");
+
+            return Ok(await _userManager.GetRolesAsync(user));
+        }
+
     }
 }
