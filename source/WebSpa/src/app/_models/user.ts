@@ -5,6 +5,7 @@ export interface User {
    name: string;
    email: string;
    login: string;
+   userName: string;
    gender: string;
    age: number;
    dateOfBirth: Date;
@@ -19,4 +20,5 @@ export interface User {
    lookingFor?: string;
    interests?: string;
    photos: Photo[];
+   roles?: string[];
 }
