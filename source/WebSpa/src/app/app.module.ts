@@ -44,6 +44,8 @@ import { HasRoleDirective } from './_directives/hasRole.directive';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { AdminService } from './_services/admin.service';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -74,7 +76,8 @@ const jwtConf = {
       AdminPanelComponent,
       HasRoleDirective,
       UserManagementComponent,
-      PhotoManagementComponent
+      PhotoManagementComponent,
+      RolesModalComponent
    ],
    imports: [
       BrowserModule,
@@ -92,6 +95,7 @@ const jwtConf = {
       JwtModule.forRoot(jwtConf),
       PaginationModule.forRoot(),
       ButtonsModule.forRoot(),
+      ModalModule.forRoot()
    ],
    providers: [
       AuthService,
@@ -105,6 +109,9 @@ const jwtConf = {
       ListsResolver,
       MessagesResolver,
       AdminService
+   ],
+   entryComponents: [
+      RolesModalComponent
    ],
    bootstrap: [AppComponent],
 })
