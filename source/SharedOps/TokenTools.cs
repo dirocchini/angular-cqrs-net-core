@@ -1,59 +1,66 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Domain.Entities;
+using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace SharedOps
 {
-        public class TokenTools
-        {
-            private readonly IConfiguration _config;
+    public class TokenTools
+    {
+        private readonly IConfiguration _config;
 
-            public TokenTools(IConfiguration config)
+        public TokenTools(IConfiguration config)
+        {
+            _config = config;
+        }
+        public string MakeToken(int userId, string login, IEnumerable<string> roles)
+        {
+            var claims = new List<Claim>
             {
-                _config = config;
-            }
-            public string MakeToken(int userId, string login)
-            {
-                var claims = new[]
-                {
                     new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
                     new Claim(ClaimTypes.Name, login)
-                };
+            };
 
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+            foreach (var role in roles)
+                claims.Add(new Claim(ClaimTypes.Role, role));
 
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
 
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(claims),
-                    Expires = DateTime.Now.AddDays(1),
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-                    SigningCredentials = creds
-                };
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-
-                return tokenHandler.WriteToken(token);
-            }
-
-            public string DecodeToken(string token)
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-                if (string.IsNullOrEmpty(token))
-                    return "-1";
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(1),
 
-                token = token.Replace("Bearer ", "");
+                SigningCredentials = creds
+            };
 
-                var stream = token;
-                var handler = new JwtSecurityTokenHandler();
-                var jsonToken = handler.ReadToken(stream);
-                var tokenS = handler.ReadToken(stream) as JwtSecurityToken;
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
 
-                return tokenS.Payload["nameid"].ToString();
-            }
+            return tokenHandler.WriteToken(token);
         }
+
+        public string DecodeToken(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+                return "-1";
+
+            token = token.Replace("Bearer ", "");
+
+            var stream = token;
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(stream);
+            var tokenS = handler.ReadToken(stream) as JwtSecurityToken;
+
+            return tokenS.Payload["nameid"].ToString();
+        }
+    }
 }

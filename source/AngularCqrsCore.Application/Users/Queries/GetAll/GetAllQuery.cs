@@ -49,7 +49,7 @@ namespace Application.Users.Queries.GetAll
                 if (request.PageSize > MaxPageSize || request.PageSize == 0)
                     request.PageSize = MaxPageSize;
 
-                var loggedUser = await _applicationContext.Users.FirstOrDefaultAsync(u => u.Id == request.CurrentUserId);
+                var loggedUser = await _applicationContext.User.FirstOrDefaultAsync(u => u.Id == request.CurrentUserId);
 
                 if (string.IsNullOrEmpty(request.Gender))
                 {
@@ -59,7 +59,7 @@ namespace Application.Users.Queries.GetAll
                         request.Gender = "female";
                 }
 
-                var users = _applicationContext.Users.Include(u => u.Photos).OrderByDescending(u => u.LastActive).AsQueryable();
+                var users = _applicationContext.User.Include(u => u.Photos).OrderByDescending(u => u.LastActive).AsQueryable();
                 users = users.Where(u => u.Id != request.CurrentUserId);
                 users = users.Where(u => u.Gender.ToLower().Trim() == request.Gender.ToLower().Trim());
 

@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Common;
+using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Entities
 {
-    public partial class User : AuditableEntity
+    public partial class User : IdentityUser<int>
     {
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Login { get; set; }
+        
+        private string name { get; set; }
+        public string Name { get { return !string.IsNullOrEmpty(name) ? name : UserName; } set { name = value; } }
+
+        private string login { get; set; }
+        public string Login { get { return !string.IsNullOrEmpty(login) ? login : UserName; } set { login = value; } }
         public string Password { get; set; }
 
 
@@ -40,5 +43,12 @@ namespace Domain.Entities
         public ICollection<Like> Likees { get; set; }
         public ICollection<Message> MessagesSent { get; set; }
         public ICollection<Message> MessagesReceived { get; set; }
+        public ICollection<UserRole> UserRoles { get; } = new List<UserRole>();
+
+
+        public int CreatedBy { get; set; }
+        public DateTime Created { get; set; }
+        public int LastModifiedBy { get; set; }
+        public DateTime? LastModified { get; set; }
     }
 }

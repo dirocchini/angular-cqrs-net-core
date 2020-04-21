@@ -24,7 +24,7 @@ namespace Application.Photos.Queries.Get
 
             public async Task<GetPhotoDto> Handle(GetPhotoQuery request, CancellationToken cancellationToken)
             {
-                var photo = await _applicationDbContext.Photos.FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken: cancellationToken);
+                var photo = await _applicationDbContext.Photos.IgnoreQueryFilters().FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken: cancellationToken);
                 return _mapper.Map<GetPhotoDto>(photo);
             }
         }

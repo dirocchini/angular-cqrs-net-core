@@ -10,15 +10,6 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            var admin = new User()
-            {
-                Id = 1,
-                Name = "Administrator",
-                Login = "admin",
-                Password = "123".Crypt(),
-                Created = DateTime.Now
-            };
-
             builder
                 .ToTable("Users");
 
@@ -50,7 +41,11 @@ namespace Persistence.Configurations
                 .IsRequired();
 
             builder
-                .HasData(admin);
+                .HasMany(e => e.UserRoles)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

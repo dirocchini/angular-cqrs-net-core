@@ -14,7 +14,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Api.Controllers
 {
-    [Authorize]
+    
     [Route("[controller]")]
     [ApiController]
     public class UserController : BaseController
@@ -42,7 +42,9 @@ namespace Api.Controllers
         [HttpGet("{id}", Name="GetUserById")]
         public async Task<IActionResult> GetById(int id)
         {
-            var users = await Mediator.Send(new GetQuery { Id = id });
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var users = await Mediator.Send(new GetQuery { Id = id, CurrentUserId = currentUserId });
             return Ok(users);
         }
 

@@ -40,7 +40,7 @@ namespace Application.Users.Commands.Likes.AddLike
                 if (alreadyLiked != null)
                     return "Already Liked This Person";
 
-                if(await _applicationDbContext.Users.FirstOrDefaultAsync(u=>u.Id == request.RecipientId)==null)
+                if(await _applicationDbContext.User.FirstOrDefaultAsync(u=>u.Id == request.RecipientId)==null)
                     return "This Person Doesn't Exist";
 
                 var like = new Like()

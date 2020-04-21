@@ -10,7 +10,7 @@ using Application.Messages.Queries.GetMessageThread;
 
 namespace Api.Controllers
 {
-    [Authorize]
+    
     [Route("user/{userId}/[controller]")]
     [ApiController]
     public class MessageController : BaseController

@@ -25,7 +25,7 @@ namespace Application.Photos.Commands.Delete
             }
             public async Task<bool> Handle(DeletePhotoCommand request, CancellationToken cancellationToken)
             {
-                var photo = await _applicationDbContext.Photos.FirstOrDefaultAsync(p => p.Id == request.PhotoId, cancellationToken: cancellationToken);
+                var photo = await _applicationDbContext.Photos.IgnoreQueryFilters().FirstOrDefaultAsync(p => p.Id == request.PhotoId, cancellationToken: cancellationToken);
 
 
                 _applicationDbContext.Photos.Remove(photo);
