@@ -100,6 +100,7 @@ namespace Application.Users.Commands.Create
         public string Url { get; set; }
         public string Description { get; set; }
         public bool IsMain { get; set; }
+        public bool IsApproved { get; set; }
 
         public void Mapping(Profile profile)
         {

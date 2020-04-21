@@ -55,5 +55,6 @@ namespace Application.Users.Queries.Get
         public string Url { get; set; }
         public string Description { get; set; }
         public bool IsMain { get; set; }
+        public bool IsApproved { get; set; }
     }
 }

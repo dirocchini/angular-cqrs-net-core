@@ -39,7 +39,8 @@ namespace Application.Login.Query.Authorize
                 var user = await _userManager.FindByNameAsync(request.Login);
                 if ( user == null)
                     return null;
-                user.Photos = _applicationDbContext.Photos.Where(p => p.UserId == user.Id)?.ToList()?? null;
+
+                user.Photos = _applicationDbContext.Photos.IgnoreQueryFilters().Where(p => p.UserId == user.Id)?.ToList()?? null;
                 var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
                 if (result.Succeeded)

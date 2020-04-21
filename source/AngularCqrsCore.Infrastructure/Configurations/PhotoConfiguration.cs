@@ -14,6 +14,9 @@ namespace Persistence.Configurations
             builder
                 .HasKey(e => e.Id);
 
+            builder
+                .HasQueryFilter(p => p.IsApproved);
+
         }
     }
 }

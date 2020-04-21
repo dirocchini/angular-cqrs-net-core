@@ -28,6 +28,7 @@ namespace Persistence
 
             foreach (var user in users)
             {
+                user.Photos.SingleOrDefault().IsApproved = true;
                 userManager.CreateAsync(user, "password").Wait();
                 userManager.AddToRoleAsync(user, "Member").Wait();
             }
